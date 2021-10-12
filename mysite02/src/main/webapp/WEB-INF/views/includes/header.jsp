@@ -13,7 +13,7 @@
 					} else { 
 				%>
 				<li><a href="<%=request.getContextPath() %>/user?a=updateform">회원정보수정</a><li>
-				<li><a href="<%=request.getContextPath() %>/user?a=logout">로그아웃</a><li>
+				<li><a href="<%=request.getContextPath() %>/user?a=logout">로그아웃</a><li>	
 				<li><%=authUser.getName() %>님 안녕하세요 ^^7</li>
 				<%  
 					}

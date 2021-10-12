@@ -1,7 +1,5 @@
 package com.douzone.mysite.vo;
 
-import java.time.LocalDate;
-
 public class GuestbookVo {
 	private Long no;
 	private String name;
@@ -12,7 +10,6 @@ public class GuestbookVo {
 	public Long getNo() {
 		return no;
 	}
-
 	public void setNo(Long no) {
 		this.no = no;
 	}
@@ -20,7 +17,6 @@ public class GuestbookVo {
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -28,7 +24,6 @@ public class GuestbookVo {
 	public String getPassword() {
 		return password;
 	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -36,7 +31,6 @@ public class GuestbookVo {
 	public String getMessage() {
 		return message;
 	}
-
 	public void setMessage(String message) {
 		this.message = message;
 	}
@@ -44,9 +38,7 @@ public class GuestbookVo {
 	public String getReg_date() {
 		return reg_date;
 	}
-
 	public void setReg_date(String reg_date) {
-		LocalDate now = LocalDate.now();
 		this.reg_date = reg_date;
 	}
 

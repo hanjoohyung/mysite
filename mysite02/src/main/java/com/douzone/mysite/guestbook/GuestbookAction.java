@@ -1,4 +1,4 @@
-package com.douzone.mysite.mvc.user;
+package com.douzone.mysite.guestbook;
 
 import java.io.IOException;
 
@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.douzone.web.mvc.Action;
 import com.douzone.web.util.MvcUtil;
 
-public class GuestBookAction implements Action {
+public class GuestbookAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		MvcUtil.forword("guestbook/list", request, response);
+		MvcUtil.redirect("/guestbook", request, response);
 
 	}
 
