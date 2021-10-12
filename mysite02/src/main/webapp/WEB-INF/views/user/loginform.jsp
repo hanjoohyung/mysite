@@ -12,7 +12,7 @@
 		<div id="header">
 			<h1>MySite</h1>
 			<ul>
-				<li><a href="<%=request.getContextPath() %>/user?a=loginform">로그인</a><li>
+				<li><a href="<%=request.getContextPath() %>/user?a=login">로그인</a><li>
 				<li><a href="<%=request.getContextPath() %>/user?a=joinform">회원가입</a><li>
 				<li><a href="<%=request.getContextPath() %>/user?a=updateform">회원정보수정</a><li>
 				<li><a href="<%=request.getContextPath() %>/user?a=logout">로그아웃</a><li>
@@ -21,7 +21,7 @@
 		</div>
 		<div id="content">
 			<div id="user">
-				<form id="login-form" name="loginform" method="post" action="/user?a=loginform">
+				<form id="login-form" name="loginform" method="post" action="/user?a=login">
 					<label class="block-label" for="email">이메일</label>
 					<input id="email" name="email" type="text" value="">
 					<label class="block-label" >패스워드</label>

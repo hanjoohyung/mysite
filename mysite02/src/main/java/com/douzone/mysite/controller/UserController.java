@@ -21,7 +21,7 @@ public class UserController extends HttpServlet {
 		MvcUtil.forword("/WEB-INF/views/user/joinform.jsp", request, response);
 		} else if("join".equals(action)) {
 			MvcUtil.forword("/WEB-INF/views/user/joinsuccess.jsp", request, response);
-		} else if("loginform".equals(action)) {
+		} else if("login".equals(action)) {
 			MvcUtil.forword("/WEB-INF/views/user/loginform.jsp", request, response);
 		} else {
 			MvcUtil.redirect("mysite02", request, response);
