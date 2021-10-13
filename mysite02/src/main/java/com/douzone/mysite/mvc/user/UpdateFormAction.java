@@ -25,9 +25,6 @@ public class UpdateFormAction implements Action {
 		}
 		
 		Long no = authUser.getNo();
-		String email = authUser.getEmail();
-		String gender = authUser.getGender();
-		UserVo userVo1 = new UserDao().findByEmailAndGender(email,gender);
 		UserVo userVo = new UserDao().findByNo(no);
 		
 		request.setAttribute("userVo", authUser);

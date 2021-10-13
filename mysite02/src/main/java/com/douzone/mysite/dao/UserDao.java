@@ -124,22 +124,23 @@ public class UserDao {
 			conn = getConnection();
 			
 			String sql =
-				" select no " + 
+				" select no, name, email, gender " + 
 			    "   from user " + 
-				"  where no=?" ;
+				"  where no=?";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setLong(1, no);
-			
+
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				no = rs.getLong(1);
-				
 				vo = new UserVo();
-				vo.setNo(no);
+				
+				vo.setNo(rs.getLong(1));
+				vo.setName(rs.getString(2));
+				vo.setEmail(rs.getString(3));
+				vo.setGender(rs.getString(4));
 			}
-			
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
@@ -161,44 +162,43 @@ public class UserDao {
 		return vo;
 	}
 
-	public UserVo findByEmailAndGender(String email, String gender) {
-		UserVo vo = null;
-		
+	public boolean update(UserVo vo) {
+		boolean result = false;
+
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-				
 		try {
 			conn = getConnection();
 			
-			String sql =
-				" select email, gender " + 
-			    "   from user " + 
-				"  where email=?" + 
-			    "    and gender=?";
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, email);
-			pstmt.setString(2, gender);
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				email = rs.getString(1);
-				gender = rs.getString(2);
+			if("".equals(vo.getPassword())) {
+				String sql =
+						" update user " + 
+						"    set name=?, gender=?" + 
+						"  where no=?";
+				pstmt = conn.prepareStatement(sql);
 				
-				vo = new UserVo();
-				vo.setEmail(email);
-				vo.setGender(gender);
+				pstmt.setString(1, vo.getName());
+				pstmt.setString(2, vo.getGender());
+				pstmt.setLong(3, vo.getNo());
+			} else {
+				String sql =
+						" update user " + 
+						"    set name=?, gender=?, password=?" + 
+						"  where no=?";
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, vo.getName());
+				pstmt.setString(2, vo.getGender());
+				pstmt.setString(3, vo.getPassword());
+				pstmt.setLong(4, vo.getNo());
 			}
 			
+			int count = pstmt.executeUpdate();
+			result = count == 1;			
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
 			try {
-				if(rs != null) {
-					rs.close();
-				}
 				if(pstmt != null) {
 					pstmt.close();
 				}
@@ -208,9 +208,8 @@ public class UserDao {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}
+		}		
 		
-		return vo;
-		
+		return result;
 	}
 }
