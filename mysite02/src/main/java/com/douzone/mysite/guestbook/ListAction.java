@@ -1,6 +1,7 @@
 package com.douzone.mysite.guestbook;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,18 +12,14 @@ import com.douzone.mysite.vo.GuestbookVo;
 import com.douzone.web.mvc.Action;
 import com.douzone.web.util.MvcUtil;
 
-public class DeleteAction implements Action {
+public class ListAction implements Action {
+
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String no = request.getParameter("no");
-		String password = request.getParameter("password");
+		List<GuestbookVo> list = new GuestbookDao().findAll();
 		
-		GuestbookVo vo = new GuestbookVo();
-		vo.setNo(Long.parseLong(no));
-		vo.setPassword(password);
-		
-		new GuestbookDao().delete(vo);
-		MvcUtil.redirect(request.getContextPath() + "/guestbook", request, response);
+		request.setAttribute("list", list);
+		MvcUtil.forword("guestbook/list", request, response);
 	}
 
 }

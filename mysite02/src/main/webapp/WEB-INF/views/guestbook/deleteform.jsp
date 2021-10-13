@@ -10,8 +10,8 @@
 	<div id="container">
 		<jsp:include page="/WEB-INF/views/includes/header.jsp"/>
 		<div id="content">
-			<div id="<%=request.getContextPath() %>/guestbook" class="delete-form">
-				<form method="post" action="/guestbook">
+			<div id="guestbook" class="delete-form">
+				<form method="post" action="<%=request.getContextPath() %>/guestbook">
 					<input type="hidden" name="a" value="delete">
 					<input type='hidden' name="no" value="">
 					<label>비밀번호</label>

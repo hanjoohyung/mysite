@@ -18,17 +18,15 @@ public class AddAction implements Action {
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		String message = request.getParameter("message");
-		String reg_date = request.getParameter("reg_date");
-
+	
 		GuestbookVo vo = new GuestbookVo();
 		vo.setName(name);
 		vo.setPassword(password);
 		vo.setMessage(message);
-		vo.setReg_date(reg_date);
-		
+	
 		new GuestbookDao().insert(vo);
 		
-		MvcUtil.redirect("/guestbook", request, response);
+		MvcUtil.redirect(request.getContextPath() +"/guestbook", request, response);
 
 	}
 

@@ -16,29 +16,40 @@
 		<jsp:include page="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="guestbook">
-				<form action="<%=request.getContextPath()%>/guestbook" method="post">
+				<form action="<%=request.getContextPath()%>/guestbook?a=add" method="post">
 					<input type="hidden" name="a" value="insert">
 					<table>
 						<tr>
-							<td>이름</td>
-							<td><input type="text" name="name"></td>
-							<td>비밀번호</td>
-							<td><input type="password" name="password"></td>
+							<td>이름</td><td><input type="text" name="name"></td>
+							<td>비밀번호</td><td><input type="password" name="password"></td>
 						</tr>
 						<tr>
-							<td colspan=4><textarea name="content" id="content"></textarea></td>
+							<td colspan=4><textarea name="message" id="content"></textarea></td>
 						</tr>
 						<tr>
 							<td colspan=4 align=right><input type="submit" VALUE=" 확인 "></td>
 						</tr>
 						<%
+						int count = list.size();
+						int index = 0;
 						for (GuestbookVo vo : list) {
 						%>
-							<td><%=vo.getNo()%></td>
-							<td>이름 : <%=vo.getName()%></td>
-							<td>시간 : <%=vo.getReg_date()%></td>
-							<td>메세지 : <%=vo.getMessage()%></td>
-							<td><a href="/guestbook?a=deleteform">삭제</a></td>
+							<li>
+							<table>
+								<tr>
+									<td>[<%=count-index++ %>]</td>
+									<td><%=vo.getName() %></td>
+									<td><%=vo.getReg_date() %></td>
+									<td><a href="<%=request.getContextPath() %>/guestbook?a=deleteform&no=<%=vo.getNo()%>">삭제</a></td>
+								</tr>
+								<tr>
+									<td colspan=4>
+										<%=vo.getMessage().replaceAll("\n", "<br/>") %>	
+									</td>
+								</tr>
+							</table>
+							<br>
+						</li>
 						<%
 							}
 						%>
