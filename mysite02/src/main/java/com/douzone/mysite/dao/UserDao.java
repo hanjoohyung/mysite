@@ -114,7 +114,103 @@ public class UserDao {
 	}
 
 	public UserVo findByNo(Long no) {
+		UserVo vo = null;
 		
-		return null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+				
+		try {
+			conn = getConnection();
+			
+			String sql =
+				" select no " + 
+			    "   from user " + 
+				"  where no=?" ;
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, no);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				no = rs.getLong(1);
+				
+				vo = new UserVo();
+				vo.setNo(no);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return vo;
+	}
+
+	public UserVo findByEmailAndGender(String email, String gender) {
+		UserVo vo = null;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+				
+		try {
+			conn = getConnection();
+			
+			String sql =
+				" select email, gender " + 
+			    "   from user " + 
+				"  where email=?" + 
+			    "    and gender=?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, email);
+			pstmt.setString(2, gender);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				email = rs.getString(1);
+				gender = rs.getString(2);
+				
+				vo = new UserVo();
+				vo.setEmail(email);
+				vo.setGender(gender);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return vo;
+		
 	}
 }
