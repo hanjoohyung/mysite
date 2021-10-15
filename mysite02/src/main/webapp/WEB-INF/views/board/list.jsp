@@ -15,27 +15,26 @@
 		<div id="content">
 			<div id="board">
 				<form id="search_form" action="${pageContext.servletContext.contextPath }/board?a=search" method="post">
-					<input type="text" id="kwd" name="kwd" value="">
+					<input type="text" id="kwd" name="kwd" value="글 제목">
 					<input type="submit" value="찾기">
 				</form>
 				<table class="tbl-ex">
-					<tr>
-						<th>번호</th>
-						<th style="text-align:left">제목</th>
-						<th>작성자</th>
-						<th>조회수</th>
-						<th>작성 날짜</th>
-						<th>삭제 하기</th>
-					</tr>	
-						<c:set var='count' value='${fn:length(list) }'/>
+							<tr>
+								<th>번호</th>
+								<th style="text-align:left">제목</th>
+								<th>작성자</th>
+								<th>조회수</th>
+								<th>작성 날짜</th>
+								<th>삭제 하기</th>
+							</tr>	
 							<c:forEach items='${list }' var='boardVo' varStatus='status'>	
 							<tr>
 								<td>${boardVo.no }</td>
 								<td style="text-align:left; padding-left:0px"><a href="${pageContext.servletContext.contextPath }/board?a=view">${boardVo.title }</a></td>
-								<td>${userVo.name }</td>
+								<td>${authUser.name }</td>
 								<td>${boardVo.hit }</td>
 								<td>${boardVo.reg_date }</td>
-								<td><a href="${pageContext.servletContext.contextPath }/board?a=delete1&no=${boardVo.no }&title=${boardVo.title }" id="delete-book">삭제 하기</a></td>
+								<td><a href="${pageContext.servletContext.contextPath }/board?a=delete1&no=${boardVo.no}&title=${boardVo.title}" id="delete-book">삭제 하기</a></td>
 							</tr>
 							</c:forEach>								
 				</table>

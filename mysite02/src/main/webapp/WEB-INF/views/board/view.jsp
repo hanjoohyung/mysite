@@ -18,7 +18,6 @@
 					<tr>
 						<th colspan="2">글보기</th>
 					</tr>
-					
 					<tr>
 						<td class="label">제목</td>
 						<td>${boardVo.title }</td>
@@ -26,8 +25,7 @@
 					<tr>
 						<td class="label">내용</td>
 						<td>
-							<div class="view-content">
-								${boardVo.contents }
+							<div class="view-content"> ${boardVo.contents }
 							</div>
 						</td>
 					</tr>

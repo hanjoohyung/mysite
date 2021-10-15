@@ -35,6 +35,7 @@ public class UpdateAction implements Action {
 
 		new UserDao().update(vo);
 		
+		// logout
 		HttpSession session1 = request.getSession();
 		session1.removeAttribute("authUser");
 		session1.invalidate();

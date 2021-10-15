@@ -11,7 +11,9 @@ import com.douzone.web.util.MvcUtil;
 
 public class ViewAction implements Action {
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+
+
 		MvcUtil.forword("board/view", request, response);
 	}
 }

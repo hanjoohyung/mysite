@@ -20,8 +20,6 @@ public class BoardActionFactory extends ActionFactory{
 			action = new Update1Action(); 
 		} else if("search".equals(actionName)){
 			action = new SearchAction(); 
-		} else if("updateform1".equals(actionName)){
-			action = new UpdateForm1Action(); 
 		} else if("delete1".equals(actionName)){
 			action = new Delete1Action(); 
 		} else {

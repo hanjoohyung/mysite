@@ -15,3 +15,7 @@ select *
 insert into user values(null, '둘리', 'dooly@gmail.com', '1234', 'male', now());
 
 insert into guestbook values(null, '둘리', '1234', 'dooly', now());
+
+desc board;
+
+insert into board values(null, '123', '123');

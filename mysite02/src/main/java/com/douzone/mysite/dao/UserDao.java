@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.douzone.mysite.vo.UserVo;
 
 public class UserDao {
@@ -28,6 +31,7 @@ public class UserDao {
 			
 			pstmt.setString(1, email);
 			pstmt.setString(2, password);
+		
 			
 			rs = pstmt.executeQuery();
 			
@@ -214,6 +218,68 @@ public class UserDao {
 			}
 		}		
 		
+		return result;
+	}
+
+	public List<UserVo> findAll() {
+		List<UserVo> result = new ArrayList<>();
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+
+			// 3. SQL 준비
+			String sql = "select *" + "  	from user" + "      order by no asc";
+			pstmt = conn.prepareStatement(sql);
+
+			// 4. 바인딩(binding)
+
+			// 5. SQL 실행
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Long no = rs.getLong(1);
+				String name = rs.getString(2);
+				String email = rs.getString(3);
+				String password = rs.getString(4);
+				String gender = rs.getString(5);
+				String join_date = rs.getString(6);
+				// System.out.println("테스트 " + reg_date);
+
+				UserVo vo = new UserVo();
+				vo.setNo(no);
+				vo.setName(name);
+				vo.setEmail(email);
+				vo.setPassword(password);
+				vo.setGender(gender);
+				vo.setJoin_date(join_date);
+
+				result.add(vo);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+			e.printStackTrace();
+		} finally {
+			// clean up
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
 		return result;
 	}
 }

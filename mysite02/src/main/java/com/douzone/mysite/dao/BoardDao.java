@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.douzone.mysite.vo.BoardVo;
-import com.douzone.mysite.vo.GuestbookVo;
-import com.douzone.mysite.vo.UserVo;
 
 public class BoardDao {
 	public List<BoardVo> findAll() {
@@ -119,7 +117,7 @@ public class BoardDao {
 
 		return result;
 	}
-
+	
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
 		try {
@@ -135,7 +133,7 @@ public class BoardDao {
 
 		return conn;
 	}
-	
+
 	public boolean update(BoardVo vo) {
 		boolean result = false;
 
@@ -143,71 +141,96 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		try {
 			conn = getConnection();
-			
-			if("<%=vo.hit%>".equals(vo.getHit())) {
-				String sql =
-						" update board " + 
-						"    set title=?, contents=?" + 
-						"  where hit=?";
+
+			if ("<%=vo.hit%>".equals(vo.getHit())) {
+				String sql = " update board " + "    set title=?, contents=?" + "  where hit=?";
 				pstmt = conn.prepareStatement(sql);
-				
+
 				pstmt.setString(1, vo.getTitle());
 				pstmt.setString(2, vo.getContents());
-				
+
 			} else {
-				String sql =
-						" update board " + 
-						"    set title=?, contents=?" + 
-						"  where hit=?";
+				String sql = " update board " + "    set title=?, contents=?" + "  where hit=?";
 				pstmt = conn.prepareStatement(sql);
-				
+
 				pstmt.setString(1, vo.getTitle());
 				pstmt.setString(2, vo.getContents());
 				pstmt.setInt(3, vo.getHit());
 			}
-			
+
 			int count = pstmt.executeUpdate();
-			result = count == 1;			
+			result = count == 1;
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
 			try {
-				if(pstmt != null) {
+				if (pstmt != null) {
 					pstmt.close();
 				}
-				if(conn != null) {
+				if (conn != null) {
 					conn.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}		
-		
+		}
+
 		return result;
 	}
-	
+	public boolean search(BoardVo vo) {
+		boolean result = false;
 
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = getConnection();
+
+			if ("<%=vo.kwd%>".equals(vo.getTitle())) {
+				String sql = "select *\r\n"
+						+ "	from board\r\n"
+						+ "	where title =?";
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setString(1, vo.getTitle());
+			} 
+			int count = pstmt.executeUpdate();
+			result = count == 1;
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return result;
+	}
 	public BoardVo findByNo(Long no) {
 		BoardVo vo = null;
-		
+
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-				
+
 		try {
 			conn = getConnection();
-			
-			String sql =
-				" select no, title, contents, hit, reg_date, group_no, order_no, depth, user_no " + 
-			    "   from user " + 
-				"  where no=?";
+
+			String sql = " select no, title, contents, hit, reg_date, group_no, order_no, depth, user_no "
+					+ "   from user " + "  where no=?";
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setLong(1, no);
 
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				vo = new BoardVo();
 				
 				vo.setNo(rs.getLong(1));
@@ -224,25 +247,25 @@ public class BoardDao {
 			System.out.println("error:" + e);
 		} finally {
 			try {
-				if(rs != null) {
+				if (rs != null) {
 					rs.close();
 				}
-				if(pstmt != null) {
+				if (pstmt != null) {
 					pstmt.close();
 				}
-				if(conn != null) {
+				if (conn != null) {
 					conn.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return vo;
-		}	
-	
-		public boolean delete(BoardVo vo) {
-		
+	}
+
+	public boolean delete(BoardVo vo) {
+
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -267,7 +290,7 @@ public class BoardDao {
 			int count = pstmt.executeUpdate();
 
 			result = count == 1;
-			
+
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패:" + e);
 		} catch (SQLException e) {
@@ -287,4 +310,5 @@ public class BoardDao {
 		}
 		return result;
 	}
+	
 }
