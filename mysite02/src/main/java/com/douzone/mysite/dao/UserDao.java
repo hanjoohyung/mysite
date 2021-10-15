@@ -20,7 +20,7 @@ public class UserDao {
 			conn = getConnection();
 			
 			String sql =
-				" select no, name " + 
+				" select no, name, email, gender " + 
 			    "   from user " + 
 				"  where email=?" + 
 			    "    and password=?";
@@ -34,10 +34,14 @@ public class UserDao {
 			if(rs.next()) {
 				Long no = rs.getLong(1);
 				String name = rs.getString(2);
+				String email1 = rs.getString(3);
+				String gender = rs.getString(4);
 				
 				vo = new UserVo();
 				vo.setNo(no);
 				vo.setName(name);
+				vo.setEmail(email1);
+				vo.setGender(gender);
 			}
 			
 		} catch (SQLException e) {
@@ -170,7 +174,7 @@ public class UserDao {
 		try {
 			conn = getConnection();
 			
-			if("".equals(vo.getPassword())) {
+			if("<%=vo.password%>".equals(vo.getPassword())) {
 				String sql =
 						" update user " + 
 						"    set name=?, gender=?" + 

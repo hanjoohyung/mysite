@@ -1,4 +1,4 @@
-package com.douzone.mysite.mvc.user;
+package com.douzone.mysite.board;
 
 import java.io.IOException;
 
@@ -7,38 +7,39 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.douzone.mysite.dao.BoardDao;
 import com.douzone.mysite.dao.UserDao;
+import com.douzone.mysite.vo.BoardVo;
 import com.douzone.mysite.vo.UserVo;
 import com.douzone.web.mvc.Action;
 import com.douzone.web.util.MvcUtil;
 
-public class UpdateAction implements Action {
+public class Update1Action implements Action {
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Access Control(보안, 인증체크)
 		HttpSession session = request.getSession();
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		BoardVo authUser = (BoardVo)session.getAttribute("authUser");
 		if(authUser == null) {
 			MvcUtil.redirect(request.getContextPath(), request, response);
 			return;
 		}
 		
-		String name = request.getParameter("name");
-		String password = request.getParameter("password");
-		String gender = request.getParameter("gender");
+		String title = request.getParameter("title");
+		String contents = request.getParameter("contents");
 		
-		UserVo vo = new UserVo();
-		vo.setName(name);
-		vo.setPassword(password);
-		vo.setGender(gender);
+		BoardVo vo = new BoardVo();
+		vo.setTitle(title);
+		vo.setContents(contents);
 		vo.setNo(authUser.getNo());
 
-		new UserDao().update(vo);
+		new BoardDao().update(vo);
+		Long no = authUser.getNo();
+		BoardVo boardVo = new BoardDao().findByNo(no);
 		
-		HttpSession session1 = request.getSession();
-		session1.removeAttribute("authUser");
-		session1.invalidate();
+		request.setAttribute("boardVo", authUser);
 		
-		MvcUtil.redirect(request.getContextPath() + "/user", request, response);
+		MvcUtil.redirect(request.getContextPath() +"/board", request, response);
 	}
+
 }

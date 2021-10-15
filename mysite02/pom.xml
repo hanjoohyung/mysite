@@ -11,13 +11,13 @@
 	<packaging>war</packaging>
 	
 	 <dependencies>	
-	 <!-- jstl -->
+		 <!-- jstl -->
 		<dependency>
-			<groupId>javax.servlet</groupId>
+			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-	<!--  mariadb jdbcs -->
+		<!--  mariadb jdbcs -->
   		<dependency>
 		    <groupId>org.mariadb.jdbc</groupId>
 		    <artifactId>mariadb-java-client</artifactId>
