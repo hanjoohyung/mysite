@@ -18,6 +18,7 @@
 					<tr>
 						<th colspan="2">글보기</th>
 					</tr>
+					<c:forEach items='${list }' var='boardVo' varStatus='status'>
 					<tr>
 						<td class="label">제목</td>
 						<td>${boardVo.title }</td>
@@ -29,6 +30,7 @@
 							</div>
 						</td>
 					</tr>
+					</c:forEach>
 				</table>
 				<div class="bottom">
 					<a href="${pageContext.servletContext.contextPath }/board">글목록</a>

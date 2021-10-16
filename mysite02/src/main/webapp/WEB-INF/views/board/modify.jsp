@@ -20,9 +20,10 @@
 						<tr>
 							<th colspan="2">글수정</th>
 						</tr>
+						<c:forEach items='${list }' var='boardVo' varStatus='status'>	
 						<tr>
 							<td class="label">제목</td>
-							<td><input type="text" name="title" value="">${boardVo.title }</td>
+							<td><input type="text" name="title" value="${boardVo.title }"></td>
 						</tr>
 						<tr>
 							<td class="label">내용</td>
@@ -30,6 +31,7 @@
 							${boardVo.contents }		
 							</textarea></td>
 						</tr>
+						</c:forEach>
 					</table>
 					<div class="bottom">
 						<a href="${pageContext.request.contextPath }/board">취소</a> 
