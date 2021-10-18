@@ -10,13 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.douzone.mysite.dao.BoardDao;
+import com.douzone.mysite.dao.UserDao;
 import com.douzone.mysite.vo.BoardVo;
+import com.douzone.mysite.vo.UserVo;
 import com.douzone.web.mvc.Action;
 import com.douzone.web.util.MvcUtil;
 
 public class BoardAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<UserVo> list1 = new UserDao().findAll();
 		List<BoardVo> list = new BoardDao().findAll();
 
 		HttpSession session = request.getSession(true);
@@ -27,6 +30,7 @@ public class BoardAction implements Action {
 			writer.println("<script>alert('로그인 후 이용이 가능합니다.'); location.href='/mysite02" + "';</script>");
 		} else {
 			request.setAttribute("list", list);
+			request.setAttribute("list1", list1);
 			MvcUtil.forword("board/list", request, response);
 		}
 	}

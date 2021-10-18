@@ -10,6 +10,7 @@ public class BoardVo {
 	private int order_no;
 	private int depth;
 	private int user_no;
+	
 	public Long getNo() {
 		return no;
 	}

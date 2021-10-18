@@ -16,11 +16,17 @@ import com.douzone.web.util.MvcUtil;
 public class ModifyAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<BoardVo> list = new BoardDao().findAll();
+		String title = request.getParameter("title");
+		String contents = request.getParameter("contents");
+		String reg_date = request.getParameter("regdate");
 
+		BoardVo vo = new BoardDao().findWhe(title,contents);
 		HttpSession session = request.getSession(true);
-		request.setAttribute("list", list);
-		
+
+		request.setAttribute("title", vo.getTitle());
+		request.setAttribute("contents",vo.getContents());
+		request.setAttribute("reg_date", vo.getReg_date());
+	
 		MvcUtil.forword("board/modify", request, response);
 	}
 }

@@ -18,23 +18,22 @@
 					<tr>
 						<th colspan="2">글보기</th>
 					</tr>
-					<c:forEach items='${list }' var='boardVo' varStatus='status'>
 					<tr>
 						<td class="label">제목</td>
-						<td>${boardVo.title }</td>
+						<td>${title }</td>
 					</tr>
 					<tr>
 						<td class="label">내용</td>
 						<td>
-							<div class="view-content"> ${boardVo.contents }
+							<div class="view-content"> ${contents }
 							</div>
 						</td>
+					
 					</tr>
-					</c:forEach>
 				</table>
 				<div class="bottom">
 					<a href="${pageContext.servletContext.contextPath }/board">글목록</a>
-					<a href="${pageContext.servletContext.contextPath }/board?a=modify">글수정</a>
+					<a href="${pageContext.servletContext.contextPath }/board?a=modify&title=${title}&contents=${contents}&regdate=${reg_date}">글수정</a>
 				</div>
 			</div>
 		</div>

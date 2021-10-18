@@ -30,8 +30,8 @@
 							<c:forEach items='${list }' var='boardVo' varStatus='status'>	
 							<tr>
 								<td>${boardVo.no }</td>
-								<td style="text-align:left; padding-left:0px"><a href="${pageContext.servletContext.contextPath }/board?a=view">${boardVo.title }</a></td>
-								<td>${userVo.name }</td>
+								<td style="text-align:left; padding-left:0px"><a href="${pageContext.servletContext.contextPath }/board?a=view&no=${boardVo.no }&title=${boardVo.title}&regdate=${boardVo.reg_date}">${boardVo.title }</a></td>
+								<td>${name }</td>
 								<td>${boardVo.hit }</td>
 								<td>${boardVo.reg_date }</td>
 								<td><a href="${pageContext.servletContext.contextPath }/board?a=delete1&no=${boardVo.no}&title=${boardVo.title}" id="delete-book">삭제 하기</a></td>

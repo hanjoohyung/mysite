@@ -7,8 +7,7 @@
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="${pageContext.request.contextPath }/assets/css/board.css"
-	rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div id="container">
@@ -18,20 +17,18 @@
 				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board?a=update1">
 					<table class="tbl-ex">
 						<tr>
-							<th colspan="2">글수정</th>
-						</tr>
-						<c:forEach items='${list }' var='boardVo' varStatus='status'>	
+							<th colspan="2">제목 및 내용 수정</th>
+						</tr>						
 						<tr>
 							<td class="label">제목</td>
-							<td><input type="text" name="title" value="${boardVo.title }"></td>
+							<td><input type="text" name="title" value="${title }"></td>
 						</tr>
 						<tr>
 							<td class="label">내용</td>
 							<td><textarea id="content" name="contents">
-							${boardVo.contents }		
+							${contents }
 							</textarea></td>
-						</tr>
-						</c:forEach>
+						</tr>						
 					</table>
 					<div class="bottom">
 						<a href="${pageContext.request.contextPath }/board">취소</a> 

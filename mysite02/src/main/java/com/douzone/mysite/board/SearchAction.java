@@ -16,11 +16,13 @@ public class SearchAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String title = request.getParameter("title");
-		
+		String reg_date = request.getParameter("contents");
 		BoardVo vo = new BoardVo();
 		vo.setTitle(title);
+		vo.setReg_date(reg_date);
 		
-		new BoardDao().search(vo);
+		new BoardDao().findSearch(title);
+		
 		MvcUtil.redirect(request.getContextPath() + "/board", request, response);
 	}
 }

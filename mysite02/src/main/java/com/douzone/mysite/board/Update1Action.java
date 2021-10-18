@@ -16,11 +16,11 @@ public class Update1Action implements Action {
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		String title = request.getParameter("title");
 		String contents = request.getParameter("contents");
 		
 		BoardVo vo = new BoardVo();
+		
 		vo.setTitle(title);
 		vo.setContents(contents);
 
