@@ -31,7 +31,7 @@
 							<tr>
 								<td>${boardVo.no }</td>
 								<td style="text-align:left; padding-left:0px"><a href="${pageContext.servletContext.contextPath }/board?a=view&no=${boardVo.no }&title=${boardVo.title}&hit=${boardVo.hit }&regdate=${boardVo.reg_date}">${boardVo.title }</a></td>
-								<td>${name }</td>
+								<td>${boardVo.name }</td>
 								<td>${boardVo.hit }</td>
 								<td>${boardVo.reg_date }</td>
 								<td><a href="${pageContext.servletContext.contextPath }/board?a=delete1&no=${boardVo.no}&title=${boardVo.title}" id="delete-book">삭제 하기</a></td>
@@ -48,12 +48,11 @@
 						<li><a href="">3</a></li>
 						<li>4</li>
 						<li>5</li>
-						<li><a href="">▶</a></li>
+						<li><a href="">◀</a></li>
 					</ul>
 				</div>					
 				<!-- pager 추가 -->
-				
-				
+
 				<div class="bottom">
 					<a href="${pageContext.servletContext.contextPath }/board?a=write" id="new-book">글쓰기</a>
 				</div>				

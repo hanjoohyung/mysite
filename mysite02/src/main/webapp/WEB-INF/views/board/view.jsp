@@ -33,7 +33,7 @@
 				</table>
 				<div class="bottom">
 					<a href="${pageContext.servletContext.contextPath }/board">글목록</a>
-					<a href="${pageContext.servletContext.contextPath }/board?a=modify&title=${title}&contents=${contents}&hit=${hit1 }&regdate=${reg_date}">글수정</a>
+					<a href="${pageContext.servletContext.contextPath }/board?a=modify&no=${no1 }&title=${title}&contents=${contents}&hit=${hit1 }&regdate=${reg_date}">글수정</a>
 				</div>
 			</div>
 		</div>

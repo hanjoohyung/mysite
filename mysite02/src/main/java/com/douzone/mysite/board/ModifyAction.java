@@ -1,7 +1,6 @@
 package com.douzone.mysite.board;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,18 +17,16 @@ public class ModifyAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String title = request.getParameter("title");
 		String contents = request.getParameter("contents");
-		String reg_date = request.getParameter("regdate");
-		String hit = request.getParameter("hit");
+		String no = request.getParameter("no");
 		
-		// int hit1 = Integer.parseInt(hit);
+		Long no1 = Long.parseLong(no);
 		BoardVo vo = new BoardDao().findWhe(title,contents);
 		HttpSession session = request.getSession(true);
 
 		request.setAttribute("title", vo.getTitle());
 		request.setAttribute("contents",vo.getContents());
-		request.setAttribute("reg_date", vo.getReg_date());
-		request.setAttribute("hit1", vo.getHit());
-		
+		request.setAttribute("no1", vo.getNo());
+			
 		MvcUtil.forword("board/modify", request, response);
 	}
 }

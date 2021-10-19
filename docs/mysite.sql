@@ -34,3 +34,26 @@ select title, contents
 select hit
 	from board
 	where title=김경도1;
+    
+    update board set title='야미야미1', contents='야미' where hit=25;
+    
+select u.name
+	from user u join board b on u.no = b.no;
+    
+    select * from user;
+    
+    delete from user where name='마이콜' and password='1234';
+    
+select b.no,name,title,contents,hit,reg_date,group_no,order_no,depth,user_no
+	from user a, board b
+    where a.no = b.user_no;
+    
+    update board set user_no='2' where title='123';
+    
+    select name
+		from user a join board b
+        where b.user_no = a.no;
+        
+	update board b join user a set user_no=a.no;
+    select * from board;
+	update board set title='야미야미1', contents='야미' where hit=25;

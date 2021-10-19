@@ -22,7 +22,9 @@ public class BoardDao {
 			conn = getConnection();
 
 			// 3. SQL 준비
-			String sql = "select *" + "  	from board" + "      order by no asc";
+			String sql = "select b.no,name,title,contents,hit,reg_date,group_no,order_no,depth,user_no\r\n"
+					+ "	from user a, board b\r\n"
+					+ "    where a.no = b.user_no";
 			pstmt = conn.prepareStatement(sql);
 
 			// 4. 바인딩(binding)
@@ -32,18 +34,20 @@ public class BoardDao {
 
 			while (rs.next()) {
 				Long no = rs.getLong(1);
-				String title = rs.getString(2);
-				String contents = rs.getString(3);
-				int hit = rs.getInt(4);
-				String reg_date = rs.getString(5);
-				int group_no = rs.getInt(6);
-				int order_no = rs.getInt(7);
-				int depth = rs.getInt(8);
-				int user_no = rs.getInt(9);
+				String name = rs.getString(2);
+				String title = rs.getString(3);
+				String contents = rs.getString(4);
+				int hit = rs.getInt(5);
+				String reg_date = rs.getString(6);
+				int group_no = rs.getInt(7);
+				int order_no = rs.getInt(8);
+				int depth = rs.getInt(9);
+				int user_no = rs.getInt(10);
 				// System.out.println("테스트 " + reg_date);
 
 				BoardVo vo = new BoardVo();
 				vo.setNo(no);
+				vo.setName(name);
 				vo.setTitle(title);
 				vo.setContents(contents);
 				vo.setHit(hit);
@@ -80,7 +84,6 @@ public class BoardDao {
 	}
 	
 	public BoardVo findWhere(String title, String reg_date) {
-	
 		BoardVo vo = new BoardVo();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -101,11 +104,13 @@ public class BoardDao {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {		
+				Long no = rs.getLong(1);
 				String titles = rs.getString(2);
 				String contents = rs.getString(3);
 				int hit = rs.getInt(4);
 				String reg_dates = rs.getString(5);
 				
+				vo.setNo(no);
 				vo.setTitle(titles);
 				vo.setContents(contents);
 				vo.setHit(hit);
@@ -136,6 +141,7 @@ public class BoardDao {
 
 		return vo;
 	}
+	
 
 	public boolean insert(BoardVo vo) {
 		boolean result = false;
@@ -146,13 +152,13 @@ public class BoardDao {
 			conn = getConnection();
 
 			// 3. SQL 준비
-			String sql = "insert " + "into board " + "values(null, ?, ?, 0, now(), 1, 1, 1, 1)";
+			String sql = "insert " + "into board " + "values(null, ?, ?, 0, now(), 1, 1, 1, 2)";
 			pstmt = conn.prepareStatement(sql);
 
 			// 4. 바인딩(binding)
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContents());
-
+			
 			// 5. SQL 실행
 			int count = pstmt.executeUpdate();
 
@@ -196,24 +202,18 @@ public class BoardDao {
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		
 		try {
 			conn = getConnection();
-			if("<%=vo.hit%>".equals(vo.getHit()+1)) {
-			String sql = " update board 	" + "    set title=?, contents=?" + "  where hit=?";
+			
+			String sql = " update board 	" + "    set title=?, contents=?" + "  where no=?";
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContents());
-			pstmt.setInt(3, vo.getHit());
-			} else {
-				String sql = " update board 	" + "    set title=?, contents=?" + "  where hit=?";
-				pstmt = conn.prepareStatement(sql);
-
-				pstmt.setString(1, vo.getTitle());
-				pstmt.setString(2, vo.getContents());
-				pstmt.setInt(3, vo.getHit());
-			}
+			pstmt.setLong(3, vo.getNo());
+			
 			int count = pstmt.executeUpdate();
 			
 			result = count == 1;
@@ -351,15 +351,17 @@ public class BoardDao {
 			// 4. 바인딩(binding)
 			pstmt.setString(1, title);
 			pstmt.setString(2, contents);
-		
+
 			// 5. SQL 실행
 			rs = pstmt.executeQuery();
 
-			while (rs.next()) {		
+			while (rs.next()) {	
+				Long no = rs.getLong(1);
 				String titles = rs.getString(2);
 				String contentss = rs.getString(3);	
 				int hit = rs.getInt(4);	
 				
+				vo.setNo(no);
 				vo.setTitle(titles);
 				vo.setContents(contentss);				
 				vo.setHit(hit);

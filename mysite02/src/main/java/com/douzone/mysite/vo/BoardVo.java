@@ -2,6 +2,7 @@ package com.douzone.mysite.vo;
 
 public class BoardVo {
 	private Long no;
+	private String name;
 	private String title;
 	private String contents;
 	private int hit;
@@ -16,6 +17,12 @@ public class BoardVo {
 	}
 	public void setNo(Long no) {
 		this.no = no;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getTitle() {
 		return title;
