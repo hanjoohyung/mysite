@@ -53,6 +53,7 @@
 				</div>					
 				<!-- pager 추가 -->
 				
+				
 				<div class="bottom">
 					<a href="${pageContext.servletContext.contextPath }/board?a=write" id="new-book">글쓰기</a>
 				</div>				
