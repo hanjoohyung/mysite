@@ -20,15 +20,21 @@ public class ViewAction implements Action {
 		String contents = request.getParameter("contents");
 		String reg_date = request.getParameter("regdate");
 		String no = request.getParameter("no");
+		String hit = request.getParameter("hit");
 		
+		Long no1 = Long.parseLong(no);
+		Integer hit1 = Integer.parseInt(hit);
 		BoardVo vo = new BoardDao().findWhere(title,reg_date);
 		HttpSession session = request.getSession(true);
 		
+		request.setAttribute("no1", vo.getNo());
 		request.setAttribute("title", vo.getTitle());
 		request.setAttribute("contents",vo.getContents());
 		request.setAttribute("reg_date", vo.getReg_date());
+		request.setAttribute("hit1", vo.getHit());
 		
-		new BoardDao().updateHit(Long.parseLong(no));
+		new BoardDao().updateHit(no1);
+		
 		MvcUtil.forword("board/view", request, response);
 		
 	}

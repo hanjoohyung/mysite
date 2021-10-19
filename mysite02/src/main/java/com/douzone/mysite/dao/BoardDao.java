@@ -200,7 +200,7 @@ public class BoardDao {
 			conn = getConnection();
 
 			if ("<%=vo.hit%>".equals(vo.getHit())) {
-				String sql = " update board " + "    set title=?, contents=?" + "  where hit=?";
+				String sql = " update board 	" + "    set title=?, contents=?" + "  where hit=?";
 				pstmt = conn.prepareStatement(sql);
 
 				pstmt.setString(1, vo.getTitle());
@@ -417,10 +417,11 @@ public class BoardDao {
 			while (rs.next()) {		
 				String titles = rs.getString(2);
 				String contentss = rs.getString(3);	
-								
+				int hit = rs.getInt(4);	
+				
 				vo.setTitle(titles);
 				vo.setContents(contentss);				
-				
+				vo.setHit(hit);
 				return vo;
 			}
 
@@ -447,30 +448,21 @@ public class BoardDao {
 		return vo;
 	}
 	
-	  public BoardVo updateHit(Long no) {
+	  public BoardVo updateHit(Long no) { // 조회수 올려주는 코드
 	       	BoardVo vo = new BoardVo();
-	       	ResultSet rs = null;
 	        Connection conn = null;
 	        PreparedStatement pstmt = null;
+	    	ResultSet rs = null;
 	       
 	        try {
 	        	conn = getConnection();
 	        	
 	        	String sql = "update board set hit=hit+1 where no=?";
-	        	
-	            pstmt = conn.prepareStatement(sql);
-	           
-	            pstmt.setLong(1, no);
+	            pstmt = conn.prepareStatement(sql);	  
 	            
-	            pstmt.executeUpdate(); //실행 -> 조회수 1증가
+	            pstmt.setLong(1, no);	       
 	            
-	            while (rs.next()) {		
-					Long no1 = rs.getLong(1);
-				
-					vo.setNo(no1);
-				
-					return vo;
-	            }
+	            pstmt.executeUpdate(); // 실행 -> 조회수 1증가
 	        } catch (Exception e) {
 	        	System.out.println("error:" + e);
 				e.printStackTrace();

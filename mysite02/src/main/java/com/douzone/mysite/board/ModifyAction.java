@@ -19,14 +19,17 @@ public class ModifyAction implements Action {
 		String title = request.getParameter("title");
 		String contents = request.getParameter("contents");
 		String reg_date = request.getParameter("regdate");
-
+		String hit = request.getParameter("hit");
+		
+		// int hit1 = Integer.parseInt(hit);
 		BoardVo vo = new BoardDao().findWhe(title,contents);
 		HttpSession session = request.getSession(true);
 
 		request.setAttribute("title", vo.getTitle());
 		request.setAttribute("contents",vo.getContents());
 		request.setAttribute("reg_date", vo.getReg_date());
-	
+		request.setAttribute("hit1", vo.getHit());
+		
 		MvcUtil.forword("board/modify", request, response);
 	}
 }
