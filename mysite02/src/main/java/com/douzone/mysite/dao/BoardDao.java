@@ -196,25 +196,24 @@ public class BoardDao {
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		
 		try {
 			conn = getConnection();
+			if("<%=vo.hit%>".equals(vo.getHit()+1)) {
+			String sql = " update board 	" + "    set title=?, contents=?" + "  where hit=?";
+			pstmt = conn.prepareStatement(sql);
 
-			if ("<%=vo.hit%>".equals(vo.getHit())) {
-				String sql = " update board 	" + "    set title=?, contents=?" + "  where hit=?";
-				pstmt = conn.prepareStatement(sql);
-
-				pstmt.setString(1, vo.getTitle());
-				pstmt.setString(2, vo.getContents());
-
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getContents());
+			pstmt.setInt(3, vo.getHit());
 			} else {
-				String sql = " update board " + "    set title=?, contents=?" + "  where hit=?";
+				String sql = " update board 	" + "    set title=?, contents=?" + "  where hit=?";
 				pstmt = conn.prepareStatement(sql);
 
 				pstmt.setString(1, vo.getTitle());
 				pstmt.setString(2, vo.getContents());
 				pstmt.setInt(3, vo.getHit());
 			}
-
 			int count = pstmt.executeUpdate();
 			
 			result = count == 1;
@@ -235,64 +234,6 @@ public class BoardDao {
 		}
 
 		return result;
-	}
-	public BoardVo findSearch(String title) {
-		
-		BoardVo vo = new BoardVo();
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = getConnection();
-
-			// 3. SQL 준비
-			if("<%=vo.kwd%>".equals(vo.getTitle())) {
-			String sql = "select *" + "  	from board" + "     where title = ?";
-			pstmt = conn.prepareStatement(sql);
-			}
-			// 4. 바인딩(binding)
-			pstmt.setString(1, title);
-			
-		
-			// 5. SQL 실행
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {	
-				Long no = rs.getLong(1);
-				String titles = rs.getString(2);
-				int hit = rs.getInt(4);
-				String reg_date = rs.getString(5);
-				
-				vo.setNo(no);
-				vo.setTitle(titles);
-				vo.setHit(hit);
-				vo.setReg_date(reg_date);
-				
-				return vo;
-			}
-
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-			e.printStackTrace();
-		} finally {
-			// clean up
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return vo;
 	}
 	
 	public BoardVo findByNo(Long no) {
@@ -422,6 +363,7 @@ public class BoardDao {
 				vo.setTitle(titles);
 				vo.setContents(contentss);				
 				vo.setHit(hit);
+				
 				return vo;
 			}
 

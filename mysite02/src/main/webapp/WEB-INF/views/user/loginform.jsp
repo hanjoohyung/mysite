@@ -20,7 +20,7 @@
 					<input id="email" name="email" type="text" value="">
 					<label class="block-label" >패스워드</label>
 					<input name="password" type="password" value="">
-					<c:if test='${result == true }'>
+					<c:if test='${result == "fail" }'>
 					<p>
 						잘못된 ID 혹은 PASSWORD 입니다.
 					</p>
