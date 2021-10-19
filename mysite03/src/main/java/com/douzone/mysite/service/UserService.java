@@ -23,5 +23,8 @@ public class UserService {
 		return userRepository.findByEmailAndPassword(email, password);
 	}
 
-	
+	public void updateUser(UserVo userVo) {
+		userRepository.update(userVo);
+	}
+
 }
