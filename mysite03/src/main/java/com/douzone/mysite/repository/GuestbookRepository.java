@@ -18,9 +18,7 @@ import com.douzone.mysite.vo.GuestbookVo;
 public class GuestbookRepository {
 
 	public List<GuestbookVo> findAll() throws GuestbookRepositroyException {
-		StopWatch sw = new StopWatch();
-		sw.start();
-		
+	
 		List<GuestbookVo> result = new ArrayList<>();
 
 		Connection conn = null;
@@ -76,9 +74,6 @@ public class GuestbookRepository {
 			}
 		}
 
-		sw.stop();
-		Long totalTime = sw.getTotalTimeMillis();
-		System.out.println("[Execution Time][GuestbookRepository.findAll] " + totalTime + "millis");
 		
 		return result;
 	}
