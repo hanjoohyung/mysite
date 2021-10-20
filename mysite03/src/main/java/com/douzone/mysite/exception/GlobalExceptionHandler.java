@@ -21,6 +21,8 @@ public class GlobalExceptionHandler {
 		e.printStackTrace(new PrintWriter(errors));		
 		LOGGER.error(errors.toString());
 		
+		
+		
 		// 2. 요청 구분
 		
 		// 3. 사과 페이지(정상 종료)
