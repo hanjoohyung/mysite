@@ -54,6 +54,7 @@ select b.no,name,title,contents,hit,reg_date,group_no,order_no,depth,user_no
 		from user a join board b
         where b.user_no = a.no;
         
-	update board b join user a set user_no=a.no;
+	update board b join user a set user_no=a.no where name='한주형';
     select * from board;
+    select * from user;
 	update board set title='야미야미1', contents='야미' where hit=25;
