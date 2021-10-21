@@ -14,8 +14,7 @@ import com.douzone.mysite.vo.BoardVo;
 
 @Repository
 public class BoardRepository {
-		public List<BoardVo> findAll() {
-			
+		public List<BoardVo> findAll() {	
 		List<BoardVo> result = new ArrayList<>();
 
 		Connection conn = null;

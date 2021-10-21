@@ -32,4 +32,8 @@ public class BoardController {
 		boardService.addBoard(vo);
 		return "redirect:/board";
 	}
+	@RequestMapping(value = "/view/${title}/${contents}", method=RequestMethod.GET)
+	public String view(Model model) {
+		return "board/view";
+	}
 }
