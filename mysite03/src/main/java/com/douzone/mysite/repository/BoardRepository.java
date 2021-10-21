@@ -1,4 +1,4 @@
-package com.douzone.mysite.dao;
+package com.douzone.mysite.repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,10 +8,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
 
 import com.douzone.mysite.vo.BoardVo;
 
-public class BoardDao {
+@Repository
+public class BoardRepository {
 	public List<BoardVo> findAll() {
 		List<BoardVo> result = new ArrayList<>();
 
@@ -25,7 +27,7 @@ public class BoardDao {
 			// 3. SQL 준비
 			String sql = "select b.no,name,title,contents,hit,reg_date,group_no,order_no,depth,user_no\r\n"
 					+ "	from user a, board b\r\n"
-					+ "    where a.no = b.user_no limit 0,5";
+					+ "    where a.no = b.user_no";
 			pstmt = conn.prepareStatement(sql);
 
 			// 4. 바인딩(binding)
