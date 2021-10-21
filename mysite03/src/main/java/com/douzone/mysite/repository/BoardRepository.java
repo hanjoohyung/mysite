@@ -14,7 +14,8 @@ import com.douzone.mysite.vo.BoardVo;
 
 @Repository
 public class BoardRepository {
-	public List<BoardVo> findAll() {
+		public List<BoardVo> findAll() {
+			
 		List<BoardVo> result = new ArrayList<>();
 
 		Connection conn = null;
@@ -192,7 +193,7 @@ public class BoardRepository {
 			Class.forName("org.mariadb.jdbc.Driver");
 
 			// 2. 연결하기
-			String url = "jdbc:mysql://127.0.0.1:3306/webdb?charset=utf8";
+			String url = "jdbc:mysql://127.0.0.1:3306/webdb?characterEncoding=utf8";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패:" + e);
@@ -301,7 +302,7 @@ public class BoardRepository {
 			Class.forName("org.mariadb.jdbc.Driver");
 
 			// 2. 연결하기
-			String url = "jdbc:mysql://127.0.0.1:3306/webdb?charset=utf8";
+			String url = "jdbc:mysql://127.0.0.1:3306/webdb?characterEncoding=utf8";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			// 3. SQL 준비
