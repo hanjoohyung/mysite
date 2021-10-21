@@ -20,7 +20,7 @@
 	
 	<select id="findAll" resultType="guestbookvo">
 		<![CDATA[
-			select no, name, date_format(reg_date, '%Y년/%m월/%d일 %H시:%i분:%s초') as regDate, message from guestbook order by reg_date desc;
+			select no, name, date_format(reg_date, '%Y/%m/%d %H:%i:%s') as regDate, message from guestbook order by reg_date desc
 		]]>
 	</select>
 </mapper>

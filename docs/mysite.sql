@@ -63,4 +63,7 @@ select b.no,name,title,contents,hit,reg_date,group_no,order_no,depth,user_no
     
     update board b join user u set b.user_no = u.no where u.name='한주형';
     
-    insert into board values(null, ?, ?, 0, now(), 1, 1, 1, ?)
+    insert into board values(null, ?, ?, 0, now(), 1, 1, 1, ?);
+    
+    select no, name, date_format(reg_date, '%Y/%m/%D %H:%i:%s') as regdate, message
+		from guestbook;
