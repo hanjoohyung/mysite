@@ -30,7 +30,7 @@
 							<c:forEach items='${list }' var='boardVo' varStatus='status'>	
 							<tr>
 								<td>${boardVo.no }</td>
-								<td style="text-align:left; padding-left:0px"><a href="${pageContext.servletContext.contextPath }/board/view&no=${boardVo.no }&title=${boardVo.title}&hit=${boardVo.hit }&regdate=${boardVo.reg_date}">${boardVo.title }</a></td>
+								<td style="text-align:left; padding-left:0px"><a href="${pageContext.servletContext.contextPath }/board/view/${boardVo.title}${boardVo.contents}">${boardVo.title }</a></td>
 								<td>${name }</td>
 								<td>${boardVo.hit }</td>
 								<td>${boardVo.reg_date }</td>

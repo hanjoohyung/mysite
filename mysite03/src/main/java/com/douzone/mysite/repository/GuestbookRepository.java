@@ -141,12 +141,8 @@ public class GuestbookRepository {
 		PreparedStatement pstmt = null;
 
 		try {
-			// 1. JDBC Driver 로딩
-			Class.forName("org.mariadb.jdbc.Driver");
-
-			// 2. 연결하기
-			String url = "jdbc:mysql://127.0.0.1:3306/webdb?charset=utf8";
-			conn = DriverManager.getConnection(url, "webdb", "webdb");
+			
+			conn = getConnection();
 
 			// 3. SQL 준비
 			String sql = "delete from guestbook where no=? and password=?";
@@ -161,8 +157,6 @@ public class GuestbookRepository {
 
 			result = count == 1;
 			
-		} catch (ClassNotFoundException e) {
-			System.out.println("드라이버 로딩 실패:" + e);
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {

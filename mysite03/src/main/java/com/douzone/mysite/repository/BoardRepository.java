@@ -96,7 +96,7 @@ public class BoardRepository {
 			conn = getConnection();
 
 			// 3. SQL 준비
-			String sql = "select *" + "  	from board" + "     where title = ? and reg_date=? ";
+			String sql = "select title, contents" + "  	from board" + "     where title = ? and reg_date=? ";
 			pstmt = conn.prepareStatement(sql);
 
 			// 4. 바인딩(binding)
@@ -205,7 +205,6 @@ public class BoardRepository {
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		
 		try {
 			conn = getConnection();

@@ -21,8 +21,4 @@ public class BoardService {
 		return boardRepository.insert(vo);
 	}
 
-	public BoardVo getfindWhere() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

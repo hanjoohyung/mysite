@@ -55,6 +55,12 @@ select b.no,name,title,contents,hit,reg_date,group_no,order_no,depth,user_no
         where b.user_no = a.no;
         
 	update board b join user a set user_no=a.no where name='한주형';
-    select * from board;
+    select * from board limit 0,5;
     select * from user;
 	update board set title='야미야미1', contents='야미' where hit=25;
+    
+    select count(*) as totalCount from board;
+    
+    update board b join user u set b.user_no = u.no where u.name='한주형';
+    
+    insert into board values(null, ?, ?, 0, now(), 1, 1, 1, ?)
