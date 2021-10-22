@@ -70,5 +70,14 @@ select b.no,name,title,contents,hit,reg_date,group_no,order_no,depth,user_no
 insert into user values(null, '관리자', 'admin@mysite.com', '1234', 'male', now(), 'ADMIN');
         select * from user;
         
+        insert into site values(null, 'MySite','안녕하세요. 한주형의 mysite에 오신 걸 환영합니다','C:/upload-images/dokgo.png','이 사이트는 웹 프로그램밍 실습과제 예제 사이트입니다.\n
+메뉴는 사이트 소개, 방명록, 게시판이 있구요.\n Java 수업 + 데이터베이스 수업 + 웹프로그래밍 수업 배운 거 있는거 없는 거 다 합쳐서 만들어 놓은 사이트 입니다.');
         
+        select * from site;
 alter table user add column role enum('USER', 'ADMIN') not null default 'USER';
+
+select count(*) from board;
+
+select* from board limit 10,10;
+
+select * from board order by reg_date desc limit 0,10;

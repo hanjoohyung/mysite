@@ -19,7 +19,7 @@ public class BoardAction implements Action {
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<BoardVo> list = new BoardDao().findAll();
+		
 		
 		HttpSession session = request.getSession(true);
 		
@@ -28,46 +28,63 @@ public class BoardAction implements Action {
 			PrintWriter writer = response.getWriter();
 			writer.println("<script>alert('로그인 후 이용이 가능합니다.'); location.href='/mysite02" + "';</script>");
 		} else {
-			int blockNo; // 블록 개수
-			int pageNo = 1; // 페이지 번호
+			
+			int blockNo = Integer.parseInt(request.getParameter("blockNo"));
+			int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+			int begin = 0;
 			int pagerNo = 5; // 페이지 목록 개수
 			int pageCount ;
 			int viewNo = 5; // 페이지에 보이는 게시물 개수
-			
 			int count = new BoardDao().pageCount();
+			pageCount = count/viewNo;
 			
+			begin = (pageNo-1)*5;
+			List<BoardVo> list = new BoardDao().findAll(begin);
 			request.setAttribute("list", list);
 			request.setAttribute("count",count);
-			
+			if (blockNo == 0) {
 			if(count%5 == 0) {
 				if(count < 25) {
 				pageCount = count/viewNo;
-				blockNo = pageCount/pagerNo+1;
+				blockNo = 1;
 				} else {
 					pageCount = count/viewNo;
-					blockNo = pageCount/pagerNo;
+					if(pageCount >= 5) {
+						blockNo = 0;
+						blockNo++;
+					} else {
+						blockNo=1;
+					}
 				}
 			}	else {
-				pageCount = (count/viewNo)+1;
-				blockNo = (pageCount/pagerNo)+1;
+					if(count < 25) {
+						pageCount = (count/viewNo)+1;
+						blockNo=1;
+					} else {
+						pageCount = (count/viewNo)+1;
+						if(pageCount >= 5) {
+							blockNo = 0;
+							blockNo++;
+						} else {
+							blockNo=1;
+						}
+					}
 			}
-		
+			}
 			PagingVo vo = new PagingVo();
 			
-			vo.setPageNo(pageNo);
 			vo.setBlockNo(blockNo);
-					
+			vo.setPageCount(pageCount);
+			
 			String start = Integer.toString(blockNo*5-4);
 			String end = Integer.toString(blockNo*5);
 			
+			
+			request.setAttribute("pageCount", pageCount);	
 			request.setAttribute("blockNo",blockNo);
 			request.setAttribute("start",start);
 			request.setAttribute("end",end);
-			System.out.println(blockNo);
-			System.out.println(count);
-			System.out.println(start);
-			System.out.println(end);
-			
+
 			MvcUtil.forword("board/list", request, response);
 		}
 		

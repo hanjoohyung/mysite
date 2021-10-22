@@ -12,8 +12,8 @@ import java.util.List;
 import com.douzone.mysite.vo.BoardVo;
 
 public class BoardDao {
-	public List<BoardVo> findAll() {
-		int blockNo=1;
+	public List<BoardVo> findAll(int begin) {
+		
 		List<BoardVo> result = new ArrayList<>();
 
 		Connection conn = null;
@@ -24,13 +24,14 @@ public class BoardDao {
 			conn = getConnection();
 
 			// 3. SQL 준비
-			String sql = "select b.no,name,title,contents,hit,reg_date,group_no,order_no,depth,user_no\r\n"
-					+ "	from user a, board b\r\n"
-					+ "    where a.no = b.user_no limit ?,5";
+			String sql = "select b.no,name,title,contents,hit,reg_date,group_no,order_no,depth,user_no	"
+					+ "	from user a, board b	"
+					+ "    where a.no = b.user_no order by reg_date desc limit ?,5";
 			pstmt = conn.prepareStatement(sql);
 
 			// 4. 바인딩(binding)
-			pstmt.setInt(1, (blockNo*5)-4);
+			pstmt.setInt(1, begin);
+			
 			// 5. SQL 실행
 			rs = pstmt.executeQuery();
 

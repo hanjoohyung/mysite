@@ -51,21 +51,21 @@
 						<c:choose >
 	      					<c:when test="${blockNo eq 1 }">◁
 	      					</c:when>		
-	      					<c:otherwise><a href="${pageContext.servletContext.contextPath }/board?pageNo=${(blockNo*5)-i }&blockNo=${(blockNo)-1 }">◀</a></c:otherwise>			
+	      					<c:otherwise><a href="${pageContext.servletContext.contextPath }/board?pageNo=${((blockNo-2)*5)+1 }&blockNo=${blockNo-1 }">◀</a></c:otherwise>			
 						</c:choose>
-						<c:forEach begin="${(blockNo-1)*5-4}" end="${(blockNo-1)*5 }" var="i" step="1">
+						<c:forEach begin="${start }" end="${end }" var="i" step="1">
 							<c:choose >
-	      						<c:when test="${(blockNo-1)*5+i eq (blockNo-1)*5+i }">
-	      							<li class="selected"><a href="${pageContext.servletContext.contextPath }/board?pageNo=${(blockNo-1)*5+i }&blockNo=${param.blcokNo }">${(blockNo-1)*5+i }</a></li>
+	      						<c:when test="${ i eq i }">
+	      							<li class="selected"><a href="${pageContext.servletContext.contextPath }/board?pageNo=${i }&blockNo=${blockNo }">${i }</a></li>
 	      						</c:when>		
-	      						<c:otherwise><li><a href="${pageContext.servletContext.contextPath }/board?pageNo=${(blockNo-1)*5+i }&blockNo=${blockNo }">${(blockNo-1)*5+i }</a></c:otherwise>			
+	      						<c:otherwise><li><a href="${pageContext.servletContext.contextPath }/board?pageNo=${i }&blockNo=${blockNo }">${i }</a></c:otherwise>			
 							</c:choose>
 						</c:forEach>
 						<c:choose >
-	      					<c:when test="${blockNo} eq ${blockNo } ">▷
+	      					<c:when test="${blockNo > pageCount/5}">▷
 	      					</c:when>		
-	      					<c:otherwise><a href="${pageContext.servletContext.contextPath }/board?pageNo=${((blockNo+1)*5)-4 }&blockNo=${(blockNo)+1 }">▶</a></c:otherwise>			
-						</c:choose>
+	      					<c:otherwise><a href="${pageContext.servletContext.contextPath }/board?pageNo=${((blockNo+1)*5)-4 }&blockNo=${blockNo+1 }">▶</a></c:otherwise>			
+							</c:choose>
 					</ul>
 				</div>					
 				<!-- pager 추가 -->
