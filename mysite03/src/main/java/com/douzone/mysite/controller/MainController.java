@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.douzone.mysite.security.Auth;
 
-@Auth
+
 @Controller
 public class MainController {
-
+	@Auth(role = "USER")
 	@RequestMapping({"","/main"})
 	public String index() {
 		return "main/index";
