@@ -13,6 +13,7 @@ import com.douzone.mysite.vo.BoardVo;
 
 public class BoardDao {
 	public List<BoardVo> findAll() {
+		int blockNo=1;
 		List<BoardVo> result = new ArrayList<>();
 
 		Connection conn = null;
@@ -25,11 +26,11 @@ public class BoardDao {
 			// 3. SQL 준비
 			String sql = "select b.no,name,title,contents,hit,reg_date,group_no,order_no,depth,user_no\r\n"
 					+ "	from user a, board b\r\n"
-					+ "    where a.no = b.user_no limit 0,5";
+					+ "    where a.no = b.user_no limit ?,5";
 			pstmt = conn.prepareStatement(sql);
 
 			// 4. 바인딩(binding)
-
+			pstmt.setInt(1, (blockNo*5)-4);
 			// 5. SQL 실행
 			rs = pstmt.executeQuery();
 
@@ -84,6 +85,49 @@ public class BoardDao {
 		return result;
 	}
 	
+	public Integer pageCount() {
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+
+			// 3. SQL 준비
+			String sql = "select count(*) from board";
+			pstmt = conn.prepareStatement(sql);
+
+			// 4. 바인딩(binding)
+			
+			// 5. SQL 실행
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+			count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+				System.out.println("error:" + e);
+				e.printStackTrace();
+			} finally {
+				// clean up
+				try {
+					if (rs != null) {
+						rs.close();
+					}
+					if (pstmt != null) {
+						pstmt.close();
+					}
+					if (conn != null) {
+						conn.close();
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+			return count;
+
+	}
 	public BoardVo findWhere(String title, String reg_date) {
 		BoardVo vo = new BoardVo();
 		Connection conn = null;

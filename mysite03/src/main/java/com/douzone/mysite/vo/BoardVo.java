@@ -1,5 +1,7 @@
 package com.douzone.mysite.vo;
 
+import java.util.List;
+
 public class BoardVo {
 	private Long no;
 	private String name;
@@ -11,6 +13,7 @@ public class BoardVo {
 	private int order_no;
 	private int depth;
 	private int user_no;
+	
 	
 	public Long getNo() {
 		return no;

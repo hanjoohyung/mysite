@@ -5,7 +5,7 @@ public class GuestbookVo {
 	private String name;
 	private String password;
 	private String message;
-	private String reg_date;
+	private String regDate;
 
 	public Long getNo() {
 		return no;
@@ -34,18 +34,16 @@ public class GuestbookVo {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-
-	public String getReg_date() {
-		return reg_date;
+	public String getRegDate() {
+		return regDate;
 	}
-	public void setReg_date(String reg_date) {
-		this.reg_date = reg_date;
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
 	}
-
 	@Override
 	public String toString() {
 		return "GuestbookVo [no=" + no + ", name=" + name + ", password=" + password + ", message=" + message
-				+ ", reg_date=" + reg_date + "]";
+				+ ", reg_date=" + regDate + "]";
 	}
 
 }

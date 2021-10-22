@@ -15,7 +15,7 @@ public class GuestbookRepository {
 	public List<GuestbookVo> findAll() throws GuestbookRepositroyException {	
 		return sqlSession.selectList("guestbook.findAll");				
 	}
-
+	
 	public boolean insert(GuestbookVo vo) {
 		int count = sqlSession.insert("guestbook.insert", vo);			
 		return count == 1;

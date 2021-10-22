@@ -2,6 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,13 +48,24 @@
 				<!-- pager 추가 -->
 				<div class="pager">
 					<ul>
-						<li><a href="">◀</a></li>
-						<li><a href="">1</a></li>
-						<li class="selected">2</li>
-						<li><a href="">3</a></li>
-						<li>4</li>
-						<li>5</li>
-						<li><a href="">◀</a></li>
+						<c:choose >
+	      					<c:when test="${blockNo eq 1 }">◁
+	      					</c:when>		
+	      					<c:otherwise><a href="${pageContext.servletContext.contextPath }/board?pageNo=${(blockNo*5)-i }&blockNo=${(blockNo)-1 }">◀</a></c:otherwise>			
+						</c:choose>
+						<c:forEach begin="${(blockNo-1)*5-4}" end="${(blockNo-1)*5 }" var="i" step="1">
+							<c:choose >
+	      						<c:when test="${(blockNo-1)*5+i eq (blockNo-1)*5+i }">
+	      							<li class="selected"><a href="${pageContext.servletContext.contextPath }/board?pageNo=${(blockNo-1)*5+i }&blockNo=${param.blcokNo }">${(blockNo-1)*5+i }</a></li>
+	      						</c:when>		
+	      						<c:otherwise><li><a href="${pageContext.servletContext.contextPath }/board?pageNo=${(blockNo-1)*5+i }&blockNo=${blockNo }">${(blockNo-1)*5+i }</a></c:otherwise>			
+							</c:choose>
+						</c:forEach>
+						<c:choose >
+	      					<c:when test="${blockNo} eq ${blockNo } ">▷
+	      					</c:when>		
+	      					<c:otherwise><a href="${pageContext.servletContext.contextPath }/board?pageNo=${((blockNo+1)*5)-4 }&blockNo=${(blockNo)+1 }">▶</a></c:otherwise>			
+						</c:choose>
 					</ul>
 				</div>					
 				<!-- pager 추가 -->
