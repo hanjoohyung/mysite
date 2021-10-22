@@ -67,3 +67,8 @@ select b.no,name,title,contents,hit,reg_date,group_no,order_no,depth,user_no
     
     select no, name, date_format(reg_date, '%Y/%m/%D %H:%i:%s') as regdate, message
 		from guestbook;
+insert into user values(null, '관리자', 'admin@mysite.com', '1234', 'male', now(), 'ADMIN');
+        select * from user;
+        
+        
+alter table user add column role enum('USER', 'ADMIN') not null default 'USER';
