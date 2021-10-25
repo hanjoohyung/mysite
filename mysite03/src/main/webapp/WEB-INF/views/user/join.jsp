@@ -18,11 +18,17 @@
 			}
 			console.log(email);
 			$.ajax({
-				url : "${pageContext.request.contextPath }/user/checkemail?email=" + email,
+				url : "${pageContext.request.contextPath }/user/api/checkemail?email=" + email,
 				type : "get",
 				dataType : "json",
 				success : function(response) {
 					console.log(response);
+					
+					if(response.exist) {
+						alert("존재하는 이메일 입니다. 다른 이메일을 사용하세요.");
+						$("#email").val("").focus();
+						return;
+					}
 				} 
 			});
 		});
