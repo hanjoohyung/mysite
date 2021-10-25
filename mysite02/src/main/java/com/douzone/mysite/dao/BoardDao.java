@@ -141,7 +141,7 @@ public class BoardDao {
 			// 3. SQL 준비
 			String sql = "select *" + "  	from board" + "     where title = ? and reg_date=? ";
 			pstmt = conn.prepareStatement(sql);
-
+			
 			// 4. 바인딩(binding)
 			pstmt.setString(1, title);
 			pstmt.setString(2, reg_date);

@@ -21,4 +21,12 @@ public class BoardService {
 		return boardRepository.insert(vo);
 	}
 
+	public BoardVo viewBoard(String title, String reg_date) {
+		BoardVo vo = new BoardVo();
+		vo.setTitle(title);
+		vo.setReg_date(reg_date);
+		
+		return boardRepository.findWhere(title, reg_date);		
+	}
+	
 }

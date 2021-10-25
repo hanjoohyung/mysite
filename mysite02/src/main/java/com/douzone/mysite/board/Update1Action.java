@@ -28,7 +28,7 @@ public class Update1Action implements Action {
 		
 		new BoardDao().update(vo);
 		
-		MvcUtil.redirect(request.getContextPath() +"/board", request, response);
+		MvcUtil.redirect(request.getContextPath() +"/board?pageNo=1&blockNo=1", request, response);
 	}
 
 }

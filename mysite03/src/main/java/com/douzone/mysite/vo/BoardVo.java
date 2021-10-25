@@ -1,7 +1,5 @@
 package com.douzone.mysite.vo;
 
-import java.util.List;
-
 public class BoardVo {
 	private Long no;
 	private String name;

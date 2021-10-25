@@ -31,7 +31,7 @@
 							<c:forEach items='${list }' var='boardVo' varStatus='status'>	
 							<tr>
 								<td>${no+1 }</td>
-								<td style="text-align:left; padding-left:0px"><a href="${pageContext.servletContext.contextPath }/board/view/${boardVo.title }/${boardVo.contents }">${boardVo.title }</a></td>
+								<td style="text-align:left; padding-left:0px"><a href="${pageContext.servletContext.contextPath }/board/view/title=${boardVo.title }/contents=${boardVo.contents }">${boardVo.title }</a></td>
 								<td>${name }</td>
 								<td>${boardVo.hit }</td>
 								<td>${boardVo.reg_date }</td>
@@ -44,13 +44,24 @@
 				<!-- pager 추가 -->
 				<div class="pager">
 					<ul>
-						<li><a href="">◀</a></li>
-						<li><a href="">1</a></li>
-						<li class="selected">2</li>
-						<li><a href="">3</a></li>
-						<li>4</li>
-						<li>5</li>
-						<li><a href="">▶</a></li>
+						<c:choose >
+	      					<c:when test="${blockNo eq 1 }">◁
+	      					</c:when>		
+	      					<c:otherwise><a href="${pageContext.servletContext.contextPath }/board?pageNo=${((blockNo-2)*5)+1 }&blockNo=${blockNo-1 }">◀</a></c:otherwise>			
+						</c:choose>
+						<c:forEach begin="${start }" end="${end }" var="i" step="1">
+							<c:choose >
+	      						<c:when test="${i eq pageNo }">
+	      							<li class="selected"><a href="${pageContext.servletContext.contextPath }/board?pageNo=${i }&blockNo=${blockNo }"> ${i }</a></li>
+	      						</c:when>		
+	      						<c:otherwise><li><a href="${pageContext.servletContext.contextPath }/board?pageNo=${i }&blockNo=${blockNo }"> ${i } </a></c:otherwise>			
+							</c:choose>
+						</c:forEach>
+						<c:choose >
+	      					<c:when test="${blockNo > pageCount/5}">▷
+	      					</c:when>		
+	      					<c:otherwise><a href="${pageContext.servletContext.contextPath }/board?pageNo=${((blockNo+1)*5)-4 }&blockNo=${blockNo+1 }">▶</a></c:otherwise>			
+							</c:choose>
 					</ul>
 				</div>					
 				<!-- pager 추가 -->

@@ -20,7 +20,6 @@ public class BoardAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
 		HttpSession session = request.getSession(true);
 		
 		if (session.getAttribute("authUser") == null) {
@@ -69,22 +68,33 @@ public class BoardAction implements Action {
 							blockNo=1;
 						}
 					}
-			}
+				}
 			}
 			PagingVo vo = new PagingVo();
 			
 			vo.setBlockNo(blockNo);
 			vo.setPageCount(pageCount);
+			vo.setPageNo(pageNo);
 			
 			String start = Integer.toString(blockNo*5-4);
+			if(blockNo == 1) {
 			String end = Integer.toString(blockNo*5);
 			
-			
+			request.setAttribute("pageNo", pageNo);
 			request.setAttribute("pageCount", pageCount);	
 			request.setAttribute("blockNo",blockNo);
 			request.setAttribute("start",start);
 			request.setAttribute("end",end);
-
+			
+			} else {
+			String end = Integer.toString(count/5+1);
+				
+			request.setAttribute("pageNo", pageNo);
+			request.setAttribute("pageCount", pageCount);	
+			request.setAttribute("blockNo",blockNo);
+			request.setAttribute("start",start);
+			request.setAttribute("end",end);
+			}
 			MvcUtil.forword("board/list", request, response);
 		}
 		

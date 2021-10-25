@@ -39,7 +39,8 @@
 							<td>${boardVo.name }</td>
 							<td>${boardVo.hit }</td>
 							<td>${boardVo.reg_date }</td>
-							<td><a href="${pageContext.servletContext.contextPath }/board?a=delete1&no=${boardVo.no}&title=${boardVo.title}" id="delete-book">삭제 하기</a></td>
+							<td><a href="${pageContext.servletContext.contextPath }/board?a=delete1&no=${boardVo.no }&title=${boardVo.title}" id="delete-book">
+									<img src="${pageContext.servletContext.contextPath }/assets/images/recycle.png" alt=""/></a></td>
 						</tr>
 						<c:set var="no" value="${no+1 }"></c:set>
 					</c:forEach>
@@ -55,10 +56,10 @@
 						</c:choose>
 						<c:forEach begin="${start }" end="${end }" var="i" step="1">
 							<c:choose >
-	      						<c:when test="${ i eq i }">
-	      							<li class="selected"><a href="${pageContext.servletContext.contextPath }/board?pageNo=${i }&blockNo=${blockNo }">${i }</a></li>
+	      						<c:when test="${i eq pageNo }">
+	      							<li class="selected"><a href="${pageContext.servletContext.contextPath }/board?pageNo=${i }&blockNo=${blockNo }"> ${i }</a></li>
 	      						</c:when>		
-	      						<c:otherwise><li><a href="${pageContext.servletContext.contextPath }/board?pageNo=${i }&blockNo=${blockNo }">${i }</a></c:otherwise>			
+	      						<c:otherwise><li><a href="${pageContext.servletContext.contextPath }/board?pageNo=${i }&blockNo=${blockNo }"> ${i } </a></c:otherwise>			
 							</c:choose>
 						</c:forEach>
 						<c:choose >
@@ -73,8 +74,7 @@
 				
 
 	<div class="bottom">
-		<a href="${pageContext.servletContext.contextPath }/board?a=write"
-			id="new-book">글쓰기</a>
+		<a href="${pageContext.servletContext.contextPath }/board?a=write" id="new-book">글쓰기</a>
 	</div>
 	</div>
 	</div>

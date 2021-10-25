@@ -20,7 +20,9 @@ public class BoardActionFactory extends ActionFactory{
 			action = new Update1Action(); 
 		} else if("delete1".equals(actionName)){
 			action = new Delete1Action(); 
-		} else {
+		} else if("rewrite".equals(actionName)){
+			action = new ReWriteAction(); 
+		}else {
 			action = new BoardAction();
 		}
 		return action;

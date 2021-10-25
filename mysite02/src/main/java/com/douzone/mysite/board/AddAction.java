@@ -22,10 +22,9 @@ public class AddAction implements Action {
 		Vo.setTitle(title);
 		Vo.setContents(contents);
 		
-		
 		new BoardDao().insert(Vo);
 		
-		MvcUtil.redirect(request.getContextPath() +"/board", request, response);
+		MvcUtil.redirect(request.getContextPath() +"/board?pageNo=1&blockNo=1", request, response);
 	}
 
 }

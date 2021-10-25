@@ -23,6 +23,7 @@ public class Delete1Action implements Action {
 		vo.setTitle(title);
 		
 		new BoardDao().delete(vo);
-		MvcUtil.redirect(request.getContextPath() + "/board", request, response);
+		
+		MvcUtil.redirect(request.getContextPath() + "/board?pageNo=1&blockNo=1", request, response);
 	}
 }
