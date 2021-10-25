@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.douzone.mysite.repository.BoardRepository;
 import com.douzone.mysite.vo.BoardVo;
+import com.douzone.mysite.vo.GuestbookVo;
+import com.douzone.mysite.vo.UserVo;
 
 @Service
 public class BoardService {
@@ -24,9 +26,27 @@ public class BoardService {
 	public BoardVo viewBoard(String title, String reg_date) {
 		BoardVo vo = new BoardVo();
 		vo.setTitle(title);
-		vo.setReg_date(reg_date);
+		vo.setContents(reg_date);
 		
 		return boardRepository.findWhere(title, reg_date);		
+	}
+
+	public boolean updateBoard(BoardVo vo) {
+		return boardRepository.update(vo);
+	}
+
+	public boolean deleteMessage(Long no, String title) {
+		BoardVo vo = new BoardVo();
+		vo.setNo(no);
+		vo.setTitle(title);	
+		
+		return boardRepository.delete(vo);
+	}
+	public BoardVo getBoard(Long no) {
+		return boardRepository.findByNo(no);
+	}
+	public boolean getBoard(BoardVo boardVo) {
+		return boardRepository.update(boardVo);
 	}
 	
 }

@@ -27,17 +27,17 @@
 								<th>작성 날짜</th>
 								<th>삭제 하기</th>
 							</tr>	
-							<c:set var='no=1' value='${fn:length(list) }' />
+							<c:set var='no=0' value='${fn:length(list) }' />
 							<c:forEach items='${list }' var='boardVo' varStatus='status'>	
 							<tr>
 								<td>${no+1 }</td>
-								<td style="text-align:left; padding-left:0px"><a href="${pageContext.servletContext.contextPath }/board/view/title=${boardVo.title }/contents=${boardVo.contents }">${boardVo.title }</a></td>
+								<td style="text-align:left; padding-left:0px"><a href="${pageContext.servletContext.contextPath }/board/view/${no+1}/${boardVo.title }/${boardVo.contents }">${boardVo.title }</a></td>
 								<td>${name }</td>
 								<td>${boardVo.hit }</td>
 								<td>${boardVo.reg_date }</td>
-								<td><a href="${pageContext.servletContext.contextPath }/board/delete1/${no+1}/${boardVo.title}" id="delete-book">삭제 하기</a></td>
+								<td><a href="${pageContext.servletContext.contextPath }/board/delete1/${boardVo.no}/${boardVo.title}" id="delete-book">삭제 하기</a></td>
 							</tr>
-							<c:set var="no" value="${no+1 }"></c:set>
+							<c:set var='no' value='${no+1 }'></c:set>
 							</c:forEach>								
 				</table>
 								

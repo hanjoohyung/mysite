@@ -8,12 +8,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.douzone.mysite.vo.BoardVo;
 
 @Repository
 public class BoardRepository {
+	@Autowired
+	private SqlSession sqlSession;
 		public List<BoardVo> findAll() {
 			int begin =0;
 		List<BoardVo> result = new ArrayList<>();
@@ -293,50 +297,8 @@ public class BoardRepository {
 	}
 
 	public boolean delete(BoardVo vo) {
-
-		boolean result = false;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-
-		try {
-			// 1. JDBC Driver 로딩
-			Class.forName("org.mariadb.jdbc.Driver");
-
-			// 2. 연결하기
-			String url = "jdbc:mysql://127.0.0.1:3306/webdb?characterEncoding=utf8";
-			conn = DriverManager.getConnection(url, "webdb", "webdb");
-
-			// 3. SQL 준비
-			String sql = "delete from board where no=? and title=?";
-			pstmt = conn.prepareStatement(sql);
-
-			// 4. binding
-			pstmt.setLong(1, vo.getNo());
-			pstmt.setString(2, vo.getTitle());
-
-			// 5. SQL 실행
-			int count = pstmt.executeUpdate();
-
-			result = count == 1;
-
-		} catch (ClassNotFoundException e) {
-			System.out.println("드라이버 로딩 실패:" + e);
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-			// clean up
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return result;
+		int count = sqlSession.delete("board.delete", vo);
+		return count == 1;
 	}
 
 	public BoardVo findWhe(String title, String contents) {
