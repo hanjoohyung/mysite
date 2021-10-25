@@ -11,7 +11,7 @@
 <body>
 	<h1>Exception Occur</h1>
 	<p>
-		<pre style='color=red'>
+		<pre style='color:red'>
 		${exception }
 		</pre>
 	</p>
