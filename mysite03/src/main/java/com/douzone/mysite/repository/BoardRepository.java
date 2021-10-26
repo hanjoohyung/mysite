@@ -14,8 +14,8 @@ import com.douzone.mysite.vo.BoardVo;
 public class BoardRepository {
 	@Autowired
 	private SqlSession sqlSession;
-		public List<BoardVo> findAll() {
-			return sqlSession.selectList("board.findAll");	
+		public List<BoardVo> findAll(int begin) {
+			return sqlSession.selectList("board.findAll", begin);	
 	}
 	
 	public BoardVo findWhere(String title, String regDate) {
@@ -26,7 +26,7 @@ public class BoardRepository {
 	}
 	
 	public boolean insert(BoardVo vo) {
-		int count = sqlSession.delete("board.insert", vo);
+		int count = sqlSession.insert("board.insert", vo);
 		return count == 1;
 	}
 
@@ -55,4 +55,8 @@ public class BoardRepository {
 	  public int updateHit(Long no) { // 조회수 올려주는 코드
 		  return sqlSession.update("board.updateHit", no);
 	  }
+
+	public int pageCount(int count) {
+		return sqlSession.selectOne("board.pageCount", count); 
+	}
 }

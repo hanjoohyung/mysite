@@ -35,7 +35,8 @@
 								<td>${name }</td>
 								<td>${boardVo.hit }</td>
 								<td>${boardVo.regDate }</td>
-								<td><a href="${pageContext.servletContext.contextPath }/board/delete1/${boardVo.no}/${boardVo.title }" id="delete-book">삭제 하기</a></td>
+								<td><a href="${pageContext.servletContext.contextPath }/board/delete1/${boardVo.no}/${boardVo.title }" id="delete-book">
+									<img src="${pageContext.servletContext.contextPath }/assets/images/recycle.png" alt=""/></a></td>
 							</tr>
 							<c:set var='no' value='${no+1 }'></c:set>
 							</c:forEach>								
@@ -47,20 +48,20 @@
 						<c:choose >
 	      					<c:when test="${blockNo eq 1 }">◁
 	      					</c:when>		
-	      					<c:otherwise><a href="${pageContext.servletContext.contextPath }/board?pageNo=${((blockNo-2)*5)+1 }&blockNo=${blockNo-1 }">◀</a></c:otherwise>			
+	      					<c:otherwise><a href="${pageContext.servletContext.contextPath }/board/pageNo=${((blockNo-2)*5)+1 }/blockNo=${blockNo-1 }">◀</a></c:otherwise>			
 						</c:choose>
 						<c:forEach begin="${start }" end="${end }" var="i" step="1">
 							<c:choose >
 	      						<c:when test="${i eq pageNo }">
-	      							<li class="selected"><a href="${pageContext.servletContext.contextPath }/board?pageNo=${i }&blockNo=${blockNo }"> ${i }</a></li>
+	      							<li class="selected"><a href="${pageContext.servletContext.contextPath }/board/pageNo=${i }/blockNo=${blockNo }"> ${i }</a></li>
 	      						</c:when>		
-	      						<c:otherwise><li><a href="${pageContext.servletContext.contextPath }/board?pageNo=${i }&blockNo=${blockNo }"> ${i } </a></c:otherwise>			
+	      						<c:otherwise><li><a href="${pageContext.servletContext.contextPath }/board/pageNo=${i }/blockNo=${blockNo }"> ${i } </a></c:otherwise>			
 							</c:choose>
 						</c:forEach>
 						<c:choose >
 	      					<c:when test="${blockNo > pageCount/5}">▷
 	      					</c:when>		
-	      					<c:otherwise><a href="${pageContext.servletContext.contextPath }/board?pageNo=${((blockNo+1)*5)-4 }&blockNo=${blockNo+1 }">▶</a></c:otherwise>			
+	      					<c:otherwise><a href="${pageContext.servletContext.contextPath }/board/pageNo=${((blockNo+1)*5)-4 }/blockNo=${blockNo+1 }">▶</a></c:otherwise>			
 							</c:choose>
 					</ul>
 				</div>					

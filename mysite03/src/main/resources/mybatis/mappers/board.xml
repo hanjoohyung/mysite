@@ -7,17 +7,17 @@
 		]]>
 	</insert>
 	
-	<select id="findAll" parameterType="string" resultType="boardvo">
+	<select id="findAll" parameterType="int" resultType="boardvo">
 		<![CDATA[
 			select b.no,name,title,contents,hit,reg_date as regDate,group_no,order_no,depth,user_no	
 				from user a, board b	
-				where a.no = b.user_no order by regDate desc limit 0,5
+				where a.no = b.user_no order by regDate desc limit #{begin},5
 		]]>
 	</select>
 	
 	<select id="findWhere" parameterType="string" resultType="boardvo">
 		<![CDATA[
-			select * from board where title = #{title} and reg_date as regDate= #{regDate} 
+			select no,title,contents,reg_date as regDate from board where title = #{title} and reg_date as regDate= #{regDate} 
 		]]>
 	</select>
 	
@@ -29,7 +29,13 @@
 	
 	<select id="findWhe" parameterType="string" resultType="boardvo">
 		<![CDATA[
-			select * from board where title = #{title} and contents = #{contents}	
+			select no,title,contents,reg_date as regDate from board where title = #{title} and contents = #{contents}	
+		]]>
+	</select>
+	
+	<select id="pageCount" parameterType="int" resultType="boardvo">
+		<![CDATA[
+			select count(no) from board	
 		]]>
 	</select>
 	

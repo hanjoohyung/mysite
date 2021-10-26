@@ -34,4 +34,10 @@ public class GalleryController {
 		galleryService.saveImage(file, comments);
 		return "redirect:/gallery";
 	}
+	
+	@RequestMapping(value="/delete")
+	public String delete(GalleryVo vo) {
+		galleryService.removeImage(vo);
+		return "redirect:/gallery";
+	}
 }

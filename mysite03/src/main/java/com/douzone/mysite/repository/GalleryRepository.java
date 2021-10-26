@@ -13,12 +13,14 @@ public class GalleryRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public Boolean insert(GalleryVo vo) {
-		return 1 == sqlSession.insert("gallery.insert", vo);
+	public boolean insert(GalleryVo vo) {
+		int count = sqlSession.insert("gallery.insert", vo);
+		return count == 1;
 	}
 
-	public Boolean delete(Long no) {
-		return 1 == sqlSession.delete("gallery.delete", no);
+	public boolean delete(GalleryVo vo) {
+		int count = sqlSession.delete("gallery.delete", vo);
+		return count == 1;
 	}
 
 	public List<GalleryVo> findAll() {

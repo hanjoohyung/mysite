@@ -27,8 +27,8 @@ public class GalleryService {
 		return galleryRepository.findAll();
 	}
 	
-	public Boolean removeImage(Long no) {
-		return galleryRepository.delete(no);
+	public Boolean removeImage(GalleryVo vo) {
+		return galleryRepository.delete(vo);
 	}
 
 	public void saveImage(MultipartFile file, String comments) throws GalleryServiceException {
