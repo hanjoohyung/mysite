@@ -37,10 +37,11 @@ public class BoardController {
 		boardService.addBoard(vo);
 		return "redirect:/board";
 	}
-	@RequestMapping(value = "/view/{no}", method=RequestMethod.GET)
-	public String view(@PathVariable("no") Long no, Model model) {
+	@RequestMapping(value = "/view/{boardVo.no}/{boardVo.title}/{boardVo.contents}/{boardVo.regDate}", method=RequestMethod.GET)
+	public String view(@PathVariable("boardVo.no") Long no, @PathVariable("boardVo.title") String title, @PathVariable("boardVo.contents") String contents, 
+		@PathVariable("boardVo.regDate") String regDate ,Model model) {
 		BoardVo boardVo = boardService.viewBoard(no);
-		model.addAttribute("boardVo", boardVo);
+		
 		return "board/view";
 	}
 	@Auth
@@ -62,9 +63,11 @@ public class BoardController {
 		
 		return "redirect:/board";
 	}
-	@RequestMapping(value="/delete1/{no}/{title}")
-	public String delete1(@PathVariable("no") Long no, @RequestParam(value="title", required=true, defaultValue="") String title , Model model) {
+	
+	@RequestMapping(value="/delete1/{boardVo.no}/{boardVo.title}")
+	public String delete1(@PathVariable("boardVo.no") Long no, @PathVariable("boardVo.title") String title , Model model) {
 		boardService.deleteBoard(no, title);
+	
 		return "redirect:/board";
 	}
 }

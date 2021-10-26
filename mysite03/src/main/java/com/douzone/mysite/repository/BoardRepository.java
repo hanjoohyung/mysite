@@ -31,12 +31,12 @@ public class BoardRepository {
 	}
 
 	public boolean update(BoardVo vo) {
-		int count = sqlSession.delete("board.update", vo);
+		int count = sqlSession.update("board.update", vo);
 		return count == 1;
 	}
 	
 	public BoardVo findByNo(Long no) {
-		return sqlSession.selectOne( "board.findByNo", no );
+		return sqlSession.selectOne("board.findByNo", no);
 	}
 
 	public boolean delete(BoardVo vo) {
@@ -49,10 +49,10 @@ public class BoardRepository {
 		map.put("title", title);
 		map.put("contents", contents);
 		
-		return sqlSession.selectOne( "board.findByWhe", map );
+		return sqlSession.selectOne("board.findByWhe", map);
 	}
 	
 	  public int updateHit(Long no) { // 조회수 올려주는 코드
-		  return sqlSession.update( "board.updateHit", no );
+		  return sqlSession.update("board.updateHit", no);
 	  }
 }

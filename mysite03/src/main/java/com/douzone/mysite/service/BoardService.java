@@ -24,9 +24,10 @@ public class BoardService {
 	}
 
 	public BoardVo viewBoard(Long no) {
-		BoardVo boardVo = boardRepository.findByNo( no );
+		BoardVo boardVo = boardRepository.findByNo(no);
+		
 		if( boardVo != null ) {
-			boardRepository.updateHit( no );
+			boardRepository.updateHit(no);
 		}	
 		return boardVo;
 	}
@@ -42,9 +43,7 @@ public class BoardService {
 		
 		return boardRepository.delete(vo);
 	}
-	public BoardVo getBoard(Long no) {
-		return boardRepository.findByNo(no);
-	}
+	
 	public boolean getBoard(BoardVo boardVo) {
 		return boardRepository.update(boardVo);
 	}

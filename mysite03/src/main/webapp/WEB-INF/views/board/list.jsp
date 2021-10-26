@@ -31,11 +31,11 @@
 							<c:forEach items='${list }' var='boardVo' varStatus='status'>	
 							<tr>
 								<td>${no+1 }</td>
-								<td style="text-align:left; padding-left:0px"><a href="${pageContext.servletContext.contextPath }/board/view/${no+1}">${boardVo.title }</a></td>
+								<td style="text-align:left; padding-left:0px"><a href="${pageContext.servletContext.contextPath }/board/view/${boardVo.no}/${boardVo.title }/${boardVo.contents }/${boardVo.regDate}">${boardVo.title }</a></td>
 								<td>${name }</td>
 								<td>${boardVo.hit }</td>
 								<td>${boardVo.regDate }</td>
-								<td><a href="${pageContext.servletContext.contextPath }/board/delete1/no=${boardVo.no}/title=${boardVo.title}" id="delete-book">삭제 하기</a></td>
+								<td><a href="${pageContext.servletContext.contextPath }/board/delete1/${boardVo.no}/${boardVo.title }" id="delete-book">삭제 하기</a></td>
 							</tr>
 							<c:set var='no' value='${no+1 }'></c:set>
 							</c:forEach>								
