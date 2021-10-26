@@ -1,12 +1,8 @@
 package com.douzone.mysite.repository;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,281 +15,28 @@ public class BoardRepository {
 	@Autowired
 	private SqlSession sqlSession;
 		public List<BoardVo> findAll() {
-			int begin =0;
-		List<BoardVo> result = new ArrayList<>();
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = getConnection();
-
-			// 3. SQL 준비
-			String sql = "select b.no,name,title,contents,hit,reg_date,group_no,order_no,depth,user_no	"
-					+ "	from user a, board b	"
-					+ "    where a.no = b.user_no order by reg_date desc limit ?,5";
-			pstmt = conn.prepareStatement(sql);
-
-			// 4. 바인딩(binding)
-			pstmt.setInt(1, begin);
-			
-			// 5. SQL 실행
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				Long no = rs.getLong(1);
-				String name = rs.getString(2);
-				String title = rs.getString(3);
-				String contents = rs.getString(4);
-				int hit = rs.getInt(5);
-				String reg_date = rs.getString(6);
-				int group_no = rs.getInt(7);
-				int order_no = rs.getInt(8);
-				int depth = rs.getInt(9);
-				int user_no = rs.getInt(10);
-				// System.out.println("테스트 " + reg_date);
-
-				BoardVo vo = new BoardVo();
-				vo.setNo(no);
-				vo.setName(name);
-				vo.setTitle(title);
-				vo.setContents(contents);
-				vo.setHit(hit);
-				vo.setReg_date(reg_date);
-				vo.setGroup_no(group_no);
-				vo.setOrder_no(order_no);
-				vo.setDepth(depth);
-				vo.setUser_no(user_no);
-
-				result.add(vo);
-			}
-
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-			e.printStackTrace();
-		} finally {
-			// clean up
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return result;
+			return sqlSession.selectList("board.findAll");	
 	}
 	
-	public BoardVo findWhere(String title, String reg_date) {
-		BoardVo vo = new BoardVo();
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = getConnection();
-
-			// 3. SQL 준비
-			String sql = "select title, contents" + "  	from board" + "     where title = ? and reg_date=? ";
-			pstmt = conn.prepareStatement(sql);
-
-			// 4. 바인딩(binding)
-			pstmt.setString(1, title);
-			pstmt.setString(2, reg_date);
-		
-			// 5. SQL 실행
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {		
-				Long no = rs.getLong(1);
-				String titles = rs.getString(2);
-				String contents = rs.getString(3);
-				int hit = rs.getInt(4);
-				String reg_dates = rs.getString(5);
-				
-				vo.setNo(no);
-				vo.setTitle(titles);
-				vo.setContents(contents);
-				vo.setHit(hit);
-				vo.setReg_date(reg_dates);
-				
-				return vo;
-			}
-
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-			e.printStackTrace();
-		} finally {
-			// clean up
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return vo;
+	public BoardVo findWhere(String title, String regDate) {
+		Map<String, String> map = new HashMap<>();
+		map.put("title", title);
+		map.put("regDate", regDate);
+		return  sqlSession.selectOne("board.findWhere", map);	
 	}
 	
-
 	public boolean insert(BoardVo vo) {
-		boolean result = false;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-
-		try {
-			conn = getConnection();
-
-			// 3. SQL 준비
-			String sql = "insert " + "into board " + "values(null, ?, ?, 0, now(), 1, 1, 1, 1)";
-			pstmt = conn.prepareStatement(sql);
-
-			// 4. 바인딩(binding)
-			pstmt.setString(1, vo.getTitle());
-			pstmt.setString(2, vo.getContents());
-			
-			// 5. SQL 실행
-			int count = pstmt.executeUpdate();
-
-			result = count == 1;
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-			// clean up
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return result;
-	}
-	
-	private Connection getConnection() throws SQLException {
-		Connection conn = null;
-		try {
-			// 1. JDBC Driver 로딩
-			Class.forName("org.mariadb.jdbc.Driver");
-
-			// 2. 연결하기
-			String url = "jdbc:mysql://127.0.0.1:3306/webdb?characterEncoding=utf8";
-			conn = DriverManager.getConnection(url, "webdb", "webdb");
-		} catch (ClassNotFoundException e) {
-			System.out.println("드라이버 로딩 실패:" + e);
-		}
-
-		return conn;
+		int count = sqlSession.delete("board.insert", vo);
+		return count == 1;
 	}
 
 	public boolean update(BoardVo vo) {
-		boolean result = false;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-			conn = getConnection();
-			
-			String sql = " update board 	" + "    set title=?, contents=?" + "  where no=?";
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, vo.getTitle());
-			pstmt.setString(2, vo.getContents());
-			pstmt.setLong(3, vo.getNo());
-			
-			int count = pstmt.executeUpdate();
-			
-			result = count == 1;
-			
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return result;
+		int count = sqlSession.delete("board.update", vo);
+		return count == 1;
 	}
 	
 	public BoardVo findByNo(Long no) {
-		BoardVo vo = null;
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = getConnection();
-
-			String sql = " select no, title, contents, hit, reg_date, group_no, order_no, depth, user_no "
-					+ "   from user " + "  where no=?";
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setLong(1, no);
-
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				vo = new BoardVo();
-				
-				vo.setNo(rs.getLong(1));
-				vo.setTitle(rs.getString(2));
-				vo.setContents(rs.getString(3));
-				vo.setHit(rs.getInt(4));
-				vo.setReg_date(rs.getString(5));
-				vo.setGroup_no(rs.getInt(6));
-				vo.setOrder_no(rs.getInt(7));
-				vo.setDepth(rs.getInt(8));
-				vo.setUser_no(rs.getInt(9));
-			}
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return vo;
+		return sqlSession.selectOne( "board.findByNo", no );
 	}
 
 	public boolean delete(BoardVo vo) {
@@ -302,98 +45,14 @@ public class BoardRepository {
 	}
 
 	public BoardVo findWhe(String title, String contents) {
-		BoardVo vo = new BoardVo();
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = getConnection();
-
-			// 3. SQL 준비
-			String sql = "select *" + "  	from board" + "     where title = ? and contents = ?";
-			pstmt = conn.prepareStatement(sql);
-
-			// 4. 바인딩(binding)
-			pstmt.setString(1, title);
-			pstmt.setString(2, contents);
-
-			// 5. SQL 실행
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {	
-				Long no = rs.getLong(1);
-				String titles = rs.getString(2);
-				String contentss = rs.getString(3);	
-				int hit = rs.getInt(4);	
-				
-				vo.setNo(no);
-				vo.setTitle(titles);
-				vo.setContents(contentss);				
-				vo.setHit(hit);
-				
-				return vo;
-			}
-
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-			e.printStackTrace();
-		} finally {
-			// clean up
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return vo;
+		Map<String, String> map = new HashMap<>();
+		map.put("title", title);
+		map.put("contents", contents);
+		
+		return sqlSession.selectOne( "board.findByWhe", map );
 	}
 	
-	  public BoardVo updateHit(Long no) { // 조회수 올려주는 코드
-	       	BoardVo vo = new BoardVo();
-	        Connection conn = null;
-	        PreparedStatement pstmt = null;
-	    	ResultSet rs = null;
-	       
-	        try {
-	        	conn = getConnection();
-	        	
-	        	String sql = "update board set hit=hit+1 where no=?";
-	            pstmt = conn.prepareStatement(sql);	  
-	            
-	            pstmt.setLong(1, no);	       
-	            
-	            pstmt.executeUpdate(); // 실행 -> 조회수 1증가
-	        } catch (Exception e) {
-	        	System.out.println("error:" + e);
-				e.printStackTrace();
-	        }finally {
-				// clean up
-				try {
-					if (rs != null) {
-						rs.close();
-					}
-					if (pstmt != null) {
-						pstmt.close();
-					}
-					if (conn != null) {
-						conn.close();
-					}
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-	       return vo;
-	    }
-
-	 
+	  public int updateHit(Long no) { // 조회수 올려주는 코드
+		  return sqlSession.update( "board.updateHit", no );
+	  }
 }

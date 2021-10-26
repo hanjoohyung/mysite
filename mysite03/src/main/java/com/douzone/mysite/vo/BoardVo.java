@@ -6,7 +6,7 @@ public class BoardVo {
 	private String title;
 	private String contents;
 	private int hit;
-	private String reg_date;
+	private String regDate;
 	private int group_no;
 	private int order_no;
 	private int depth;
@@ -43,11 +43,11 @@ public class BoardVo {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
-	public String getReg_date() {
-		return reg_date;
+	public String getRegDate() {
+		return regDate;
 	}
-	public void setReg_date(String reg_date) {
-		this.reg_date = reg_date;
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
 	}
 	public int getGroup_no() {
 		return group_no;
@@ -76,7 +76,7 @@ public class BoardVo {
 	@Override
 	public String toString() {
 		return "BoardVo [no=" + no + ", title=" + title + ", contents=" + contents + ", hit=" + hit + ", reg_date="
-				+ reg_date + ", gruop_no=" + group_no + ", order_no=" + order_no + ", depth=" + depth + ", user_no="
+				+ regDate + ", gruop_no=" + group_no + ", order_no=" + order_no + ", depth=" + depth + ", user_no="
 				+ user_no + "]";
 	}
 	

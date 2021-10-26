@@ -23,19 +23,19 @@ public class BoardService {
 		return boardRepository.insert(vo);
 	}
 
-	public BoardVo viewBoard(String title, String reg_date) {
-		BoardVo vo = new BoardVo();
-		vo.setTitle(title);
-		vo.setContents(reg_date);
-		
-		return boardRepository.findWhere(title, reg_date);		
+	public BoardVo viewBoard(Long no) {
+		BoardVo boardVo = boardRepository.findByNo( no );
+		if( boardVo != null ) {
+			boardRepository.updateHit( no );
+		}	
+		return boardVo;
 	}
 
 	public boolean updateBoard(BoardVo vo) {
 		return boardRepository.update(vo);
 	}
 
-	public boolean deleteMessage(Long no, String title) {
+	public boolean deleteBoard(Long no, String title) {
 		BoardVo vo = new BoardVo();
 		vo.setNo(no);
 		vo.setTitle(title);	

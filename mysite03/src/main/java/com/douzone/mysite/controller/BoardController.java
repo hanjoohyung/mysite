@@ -37,16 +37,10 @@ public class BoardController {
 		boardService.addBoard(vo);
 		return "redirect:/board";
 	}
-	@RequestMapping(value = "/view/{no+1}/{boardVo.title }/{boardVo.reg_date }", method=RequestMethod.GET)
-	public String view(@RequestParam(value="no", required=true, defaultValue="") Long no,
-			@RequestParam(value="title", required=true, defaultValue="") String title,
-			@RequestParam(value="reg_date", required=true, defaultValue="") String reg_date, Model model) {
-		model.addAttribute("no", no);
-		model.addAttribute("title", title);
-		model.addAttribute("reg_date",reg_date);
-		
-		boardService.viewBoard(title, reg_date);
-		
+	@RequestMapping(value = "/view/{no}", method=RequestMethod.GET)
+	public String view(@PathVariable("no") Long no, Model model) {
+		BoardVo boardVo = boardService.viewBoard(no);
+		model.addAttribute("boardVo", boardVo);
 		return "board/view";
 	}
 	@Auth
@@ -68,12 +62,9 @@ public class BoardController {
 		
 		return "redirect:/board";
 	}
-	@RequestMapping(value="/delete1/{boardVo.no}/{title}", method=RequestMethod.GET)
+	@RequestMapping(value="/delete1/{no}/{title}")
 	public String delete1(@PathVariable("no") Long no, @RequestParam(value="title", required=true, defaultValue="") String title , Model model) {
-		model.addAttribute("no", no);
-		model.addAttribute("title", title);
-		
-		boardService.deleteMessage(no, title);
+		boardService.deleteBoard(no, title);
 		return "redirect:/board";
 	}
 }

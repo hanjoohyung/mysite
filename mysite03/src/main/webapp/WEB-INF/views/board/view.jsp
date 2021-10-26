@@ -20,12 +20,12 @@
 					</tr>
 					<tr>
 						<td class="label">제목</td>
-						<td>${title }</td>
+						<td>${boardVo.title }</td>
 					</tr>
 					<tr>
 						<td class="label">내용</td>
 						<td>
-							<div class="view-content"> ${contents }
+							<div class="view-content"> ${boardVo.contents }
 							</div>
 						</td>
 					
