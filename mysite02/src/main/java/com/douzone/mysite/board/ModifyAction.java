@@ -28,7 +28,7 @@ public class ModifyAction implements Action {
 		BoardVo Vo = new BoardVo();
 		
 		if(Vo.getUser_no() != authUser.getNo()) {
-			
+			 
 		}
 		
 		

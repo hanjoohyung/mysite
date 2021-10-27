@@ -25,7 +25,7 @@ public class ViewAction implements Action {
 		Integer hit1 = Integer.parseInt(hit);
 		BoardVo vo = new BoardDao().findWhere(title, reg_date);
 		HttpSession session = request.getSession(true);
-		
+		 
 		request.setAttribute("no1", vo.getNo());
 		request.setAttribute("title", vo.getTitle());
 		request.setAttribute("contents",vo.getContents());

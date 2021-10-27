@@ -22,7 +22,7 @@ public class AddAction implements Action {
 		
 		String title = request.getParameter("title");
 		String contents = request.getParameter("contents");
-		
+		 
 		
 		BoardVo Vo = new BoardVo();
 		Vo.setTitle(title);

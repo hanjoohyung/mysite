@@ -29,7 +29,7 @@ public class BoardRepository {
 		int count = sqlSession.insert("board.insert", vo);
 		return count == 1;
 	}
-
+ 
 	public boolean update(BoardVo vo) {
 		int count = sqlSession.update("board.update", vo);
 		return count == 1;

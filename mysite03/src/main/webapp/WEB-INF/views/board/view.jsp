@@ -19,7 +19,7 @@
 						<th colspan="2">글보기</th>
 					</tr>
 					<tr>
-						<td class="label">제목</td>
+			 			<td class="label">제목</td>
 						<td>${title }</td>
 					</tr>
 					<tr>

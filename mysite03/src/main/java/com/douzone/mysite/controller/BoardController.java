@@ -102,7 +102,7 @@ public class BoardController {
 		}
 		
 		boardService.deleteBoard(no, title);
-	
+	 
 		return "redirect:/board/pageNo/1/blockNo/1";
 	}
 }

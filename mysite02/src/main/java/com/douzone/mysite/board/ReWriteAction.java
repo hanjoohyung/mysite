@@ -19,5 +19,5 @@ public class ReWriteAction implements Action {
 		MvcUtil.forword("board/rewrite", request, response);
 
 	}
-
+ 
 }

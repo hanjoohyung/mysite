@@ -31,7 +31,7 @@ public class Delete1Action implements Action {
 		
 		if(vo.getUser_no() != authUser.getNo()) {
 			
-		}
+		} 
 		
 		new BoardDao().delete(vo);
 		

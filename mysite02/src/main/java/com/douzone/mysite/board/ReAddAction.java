@@ -21,7 +21,7 @@ public class ReAddAction implements Action {
 		BoardVo Vo = new BoardVo();
 		Vo.setTitle(title);
 		Vo.setContents(contents);
-		
+		 
 		new BoardDao().reinsert(Vo);
 		
 		MvcUtil.redirect(request.getContextPath() +"/board?pageNo=1&blockNo=1", request, response);

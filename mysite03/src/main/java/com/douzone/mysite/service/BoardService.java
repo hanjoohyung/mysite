@@ -25,7 +25,7 @@ public class BoardService {
 		int count = 0; // 총 게시물 개수
 		count = boardRepository.pageCount(count);
 		pageCount = count/viewNo;
-		
+		 
 		begin = (pageNo-1)*5;
 		List<BoardVo> list = boardRepository.findAll(begin);
 		map.put("list", list);

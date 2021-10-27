@@ -17,7 +17,7 @@ public class PagingVo {
 	}
 	public void setPageCount(int pageCount) {
 		this.pageCount = pageCount;
-	}
+	} 
 	public int getViewNo() {
 		return viewNo;
 	}

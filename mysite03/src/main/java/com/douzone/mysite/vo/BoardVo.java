@@ -12,7 +12,7 @@ public class BoardVo {
 	private int depth;
 	private long userNo;
 	
-	
+	 
 	public Long getNo() {
 		return no;
 	}

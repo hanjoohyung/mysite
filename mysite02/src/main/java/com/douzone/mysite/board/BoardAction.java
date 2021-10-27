@@ -27,7 +27,7 @@ public class BoardAction implements Action {
 			PrintWriter writer = response.getWriter();
 			writer.println("<script>alert('로그인 후 이용이 가능합니다.'); location.href='/mysite02" + "';</script>");
 		} else {
-			
+			 
 			int blockNo = Integer.parseInt(request.getParameter("blockNo"));
 			int pageNo = Integer.parseInt(request.getParameter("pageNo"));
 			int begin = 0;

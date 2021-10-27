@@ -20,7 +20,7 @@
 						<tr>
 							<th colspan="2">글쓰기</th>
 						</tr>
-						<tr>
+			 			<tr>
 							<td class="label">제목</td>
 							<td><input type="text" name="title" value=""></td>
 						</tr>

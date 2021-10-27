@@ -15,3 +15,4 @@ public class WriteAction implements Action {
 		MvcUtil.forword("board/write", request, response);
 	}
 }
+ 
