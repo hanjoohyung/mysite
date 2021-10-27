@@ -1,6 +1,7 @@
 package com.douzone.mysite.board;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import com.douzone.mysite.dao.BoardDao;
 import com.douzone.mysite.vo.BoardVo;
+import com.douzone.mysite.vo.UserVo;
 import com.douzone.web.mvc.Action;
 import com.douzone.web.util.MvcUtil;
 
@@ -22,7 +24,14 @@ public class ModifyAction implements Action {
 		Long no1 = Long.parseLong(no);
 		BoardVo vo = new BoardDao().findWhe(title,contents);
 		HttpSession session = request.getSession(true);
-
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		BoardVo Vo = new BoardVo();
+		
+		if(Vo.getUser_no() != authUser.getNo()) {
+			
+		}
+		
+		
 		request.setAttribute("title", vo.getTitle());
 		request.setAttribute("contents",vo.getContents());
 		request.setAttribute("no1", vo.getNo());

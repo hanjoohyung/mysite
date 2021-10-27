@@ -27,18 +27,18 @@
 								<th>작성 날짜</th>
 								<th>삭제 하기</th>
 							</tr>	
-							<c:set var='no=0' value='${fn:length(list) }' />
-							<c:forEach items='${list }' var='boardVo' varStatus='status'>	
+							<c:set var='no' value='${fn:length(map.list) }' />
+							<c:forEach items='${map.list }' var='boardVo' varStatus='status'>	
 							<tr>
-								<td>${no+1 }</td>
+								<td>${status.index+1 }</td>
 								<td style="text-align:left; padding-left:0px"><a href="${pageContext.servletContext.contextPath }/board/view/${boardVo.no}/${boardVo.title }/${boardVo.contents }/${boardVo.regDate}">${boardVo.title }</a></td>
-								<td>${name }</td>
+								<td>${boardVo.name }</td>
 								<td>${boardVo.hit }</td>
 								<td>${boardVo.regDate }</td>
 								<td><a href="${pageContext.servletContext.contextPath }/board/delete1/${boardVo.no}/${boardVo.title }" id="delete-book">
 									<img src="${pageContext.servletContext.contextPath }/assets/images/recycle.png" alt=""/></a></td>
 							</tr>
-							<c:set var='no' value='${no+1 }'></c:set>
+							<c:set var='no' value='${no}'></c:set>
 							</c:forEach>								
 				</table>
 								
@@ -46,22 +46,22 @@
 				<div class="pager">
 					<ul>
 						<c:choose >
-	      					<c:when test="${blockNo eq 1 }">◁
+	      					<c:when test="${map.blockNo eq 1 }">◁
 	      					</c:when>		
-	      					<c:otherwise><a href="${pageContext.servletContext.contextPath }/board/pageNo=${((blockNo-2)*5)+1 }/blockNo=${blockNo-1 }">◀</a></c:otherwise>			
+	      					<c:otherwise><a href="${pageContext.servletContext.contextPath }/board/pageNo/${((map.blockNo-2)*5)+1 }/blockNo/${map.blockNo-1 }">◀</a></c:otherwise>			
 						</c:choose>
-						<c:forEach begin="${start }" end="${end }" var="i" step="1">
+						<c:forEach begin="${map.start }" end="${map.end }" var="i" step="1">
 							<c:choose >
 	      						<c:when test="${i eq pageNo }">
-	      							<li class="selected"><a href="${pageContext.servletContext.contextPath }/board/pageNo=${i }/blockNo=${blockNo }"> ${i }</a></li>
+	      							<li class="selected"><a href="${pageContext.servletContext.contextPath }/board/pageNo/${i }/blockNo/${map.blockNo }"> ${i }</a></li>
 	      						</c:when>		
-	      						<c:otherwise><li><a href="${pageContext.servletContext.contextPath }/board/pageNo=${i }/blockNo=${blockNo }"> ${i } </a></c:otherwise>			
+	      						<c:otherwise><li><a href="${pageContext.servletContext.contextPath }/board/pageNo/${i }/blockNo/${map.blockNo }"> ${i } </a></c:otherwise>			
 							</c:choose>
 						</c:forEach>
 						<c:choose >
-	      					<c:when test="${blockNo > pageCount/5}">▷
+	      					<c:when test="${map.blockNo > map.pageCount/5}">▷
 	      					</c:when>		
-	      					<c:otherwise><a href="${pageContext.servletContext.contextPath }/board/pageNo=${((blockNo+1)*5)-4 }/blockNo=${blockNo+1 }">▶</a></c:otherwise>			
+	      					<c:otherwise><a href="${pageContext.servletContext.contextPath }/board/pageNo/${((map.blockNo+1)*5)-4 }/blockNo/${map.blockNo+1 }">▶</a></c:otherwise>			
 							</c:choose>
 					</ul>
 				</div>					

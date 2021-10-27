@@ -45,7 +45,7 @@ public class BoardDao {
 				int group_no = rs.getInt(7);
 				int order_no = rs.getInt(8);
 				int depth = rs.getInt(9);
-				int user_no = rs.getInt(10);
+				Long user_no = rs.getLong(10);
 				// System.out.println("테스트 " + reg_date);
 
 				BoardVo vo = new BoardVo();
@@ -198,12 +198,13 @@ public class BoardDao {
 			conn = getConnection();
 
 			// 3. SQL 준비
-			String sql = "insert " + "into board " + "values(null, ?, ?, 0, now(), 1, 1, 1, 1)";
+			String sql = "insert " + "into board " + "values(null, ?, ?, 0, now(), 1, 1, 1, ?)";
 			pstmt = conn.prepareStatement(sql);
 
 			// 4. 바인딩(binding)
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContents());
+			pstmt.setLong(3, vo.getUser_no());
 			
 			// 5. SQL 실행
 			int count = pstmt.executeUpdate();
@@ -311,7 +312,7 @@ public class BoardDao {
 				vo.setGroup_no(rs.getInt(6));
 				vo.setOrder_no(rs.getInt(7));
 				vo.setDepth(rs.getInt(8));
-				vo.setUser_no(rs.getInt(9));
+				vo.setUser_no(rs.getLong(9));
 			}
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
@@ -474,6 +475,45 @@ public class BoardDao {
 			}
 	       return vo;
 	    }
+
+	public boolean reinsert(BoardVo vo) {
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = getConnection();
+
+			// 3. SQL 준비
+			String sql = "insert " + "into board " + "values(null, ?, ?, 0, now(), 1, 1, 1, 1)";
+			pstmt = conn.prepareStatement(sql);
+
+			// 4. 바인딩(binding)
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getContents());
+			
+			// 5. SQL 실행
+			int count = pstmt.executeUpdate();
+
+			result = count == 1;
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			// clean up
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return result;
+	}
 
 	 
 }

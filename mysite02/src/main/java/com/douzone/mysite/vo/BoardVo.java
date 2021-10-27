@@ -10,7 +10,7 @@ public class BoardVo {
 	private int group_no;
 	private int order_no;
 	private int depth;
-	private int user_no;
+	private Long user_no;
 	
 	public Long getNo() {
 		return no;
@@ -66,10 +66,11 @@ public class BoardVo {
 	public void setDepth(int depth) {
 		this.depth = depth;
 	}
-	public int getUser_no() {
+	
+	public Long getUser_no() {
 		return user_no;
 	}
-	public void setUser_no(int user_no) {
+	public void setUser_no(Long user_no) {
 		this.user_no = user_no;
 	}
 	@Override

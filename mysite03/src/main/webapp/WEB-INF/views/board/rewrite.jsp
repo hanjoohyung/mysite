@@ -14,7 +14,7 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board/add">
+				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board/readd">
 					<input type = "hidden" name = "a" value="write">
 					<table class="tbl-ex">
 						<tr>

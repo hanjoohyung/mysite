@@ -3,13 +3,13 @@
 <mapper namespace="board">
 	<insert id="insert" parameterType="boardvo">
 		<![CDATA[
-			 insert into board values(null, #{title}, #{contents}, 0, now(), 1, 1, 1, 1)
+			 insert into board values(null, #{title}, #{contents}, 0, now(), 1, 1, 1, #{userNo})
 		]]>
 	</insert>
 	
 	<select id="findAll" parameterType="int" resultType="boardvo">
 		<![CDATA[
-			select b.no,name,title,contents,hit,reg_date as regDate,group_no,order_no,depth,user_no	
+			select b.no as no,name,title,contents,hit,reg_date as regDate,group_no,order_no,depth,user_no as userNo	
 				from user a, board b	
 				where a.no = b.user_no order by regDate desc limit #{begin},5
 		]]>
@@ -41,7 +41,7 @@
 	
 	<update id="updateHit" parameterType="long" >
 		<![CDATA[
-		update board set hit = hit + 1 where no = #{no }
+			update board set hit = hit + 1 where no = #{no }
 		]]>	
 	</update>
 	
