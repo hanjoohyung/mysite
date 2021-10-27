@@ -76,8 +76,17 @@ insert into user values(null, '관리자', 'admin@mysite.com', '1234', 'male', n
         select * from site;
 alter table user add column role enum('USER', 'ADMIN') not null default 'USER';
 
-select count(*) from board;
+select * from board;
 
 select* from board limit 10,10;
 
 select * from board order by reg_date desc limit 0,10;
+
+select * from board where title='7g7g';
+
+select * from user;
+
+delete from board where no=59 and title=2222;
+delete from board where no=105 and title='7g7g';
+
+select no, url, comments from gallery;

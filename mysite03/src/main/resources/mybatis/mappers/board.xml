@@ -33,7 +33,7 @@
 		]]>
 	</select>
 	
-	<select id="pageCount" parameterType="int" resultType="boardvo">
+	<select id="pageCount" parameterType="boardvo" resultType="int">
 		<![CDATA[
 			select count(no) from board	
 		]]>

@@ -20,10 +20,16 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
-	@RequestMapping({"","/pageNo/blockNo"})
+	@RequestMapping({"","/pageNo/{pageNo}/blockNo/{blockNo}"})
 	public String list(@PathVariable("pageNo") int pageNo, @PathVariable("blockNo") int blockNo, Model model) {
+		System.out.println("--"+pageNo);
+		System.out.println("--"+blockNo);
+		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("blockNo", blockNo);
+		
 		Map<String, Object> list = boardService.getBoardList(pageNo, blockNo);
-		model.addAttribute("list", list);		
+		model.addAttribute("list", list);
+		
 		return "board/list";
 	}
 	@RequestMapping(value = "/write", method=RequestMethod.GET)

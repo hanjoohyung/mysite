@@ -1,11 +1,11 @@
 package com.douzone.mysite.vo;
 
 public class PagingVo {
-	private int pageNo;
-	private int blockNo;
+	private int pageNo=1;
+	private int blockNo=1;
 	private int pagerNo;
 	private int pageCount;
-	
+	private int viewNo;
 	public int getPagerNo() {
 		return pagerNo;
 	}
@@ -24,8 +24,6 @@ public class PagingVo {
 	public void setViewNo(int viewNo) {
 		this.viewNo = viewNo;
 	}
-
-	private int viewNo;
 	
 	public int getPageNo() {
 		return pageNo;
