@@ -3,15 +3,19 @@
 <mapper namespace="board">
 	<insert id="insert" parameterType="boardvo">
 		<![CDATA[
-			 insert into board values(null, #{title}, #{contents}, 0, now(), 1, 1, 1, #{userNo})
+			 insert into board values(null, #{title}, #{contents}, 0, now(), ifnull((select max(b.group_no)+1 from board b),0), 1, 1, #{userNo})
 		]]>
 	</insert>
-	
+	<insert id="reinsert" parameterType="boardvo">
+		<![CDATA[
+			 insert into board values(null, #{title}, #{contents}, 0, now(), #{groupNo}, #{orderNo}, #{depth}, #{userNo})
+		]]>
+	</insert>
 	<select id="findAll" parameterType="int" resultType="boardvo">
 		<![CDATA[
-			select b.no as no,name,title,contents,hit,reg_date as regDate,group_no,order_no,depth,user_no as userNo	
+			select b.no as no,name,title,contents,hit,reg_date as regDate, group_no as groupNo, order_no as orderNo ,depth, user_no as userNo	
 				from user a, board b	
-				where a.no = b.user_no order by regDate desc limit #{begin},5
+				where a.no = b.user_no order by groupNo desc, orderNo asc limit #{begin},5
 		]]>
 	</select>
 	
@@ -23,7 +27,8 @@
 	
 	<select id="findByNo" parameterType="long" resultType="boardvo">
 		<![CDATA[
-			select no,title,contents,reg_date as regDate from board where no = #{no }		
+			select no,title,contents, reg_date as regDate, group_no as groupNo, order_no as orderNo, depth, user_no as userNo
+				from board where no = #{no }		
 		]]>
 	</select>
 	

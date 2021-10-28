@@ -106,7 +106,7 @@ public class BoardService {
 	public boolean updateBoard(BoardVo vo) {
 		return boardRepository.update(vo);
 	}
-
+	
 	public boolean deleteBoard(Long no, String title) {
 		BoardVo vo = new BoardVo();
 		vo.setNo(no);
@@ -117,6 +117,22 @@ public class BoardService {
 	
 	public boolean getBoard(BoardVo boardVo) {
 		return boardRepository.update(boardVo);
+	}
+
+	public boolean readdBoard(BoardVo vo) {
+		vo.getTitle();
+		vo.getContents();
+		vo.getGroupNo();
+		vo.getOrderNo();
+		vo.getDepth();
+		vo.getUserNo();
+		
+		return boardRepository.reinsert(vo);
+		
+	}
+
+	public BoardVo serach(Long no) {
+		return boardRepository.findByNo(no);
 	}
 	
 }

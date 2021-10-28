@@ -9,18 +9,18 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="${pageContext.request.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body> 
 	<div id="container">
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board/readd">
+				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board/readd/${boardVo.no}">
 					<input type = "hidden" name = "a" value="write">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>
 						</tr>
-			 			<tr>
+						<tr>
 							<td class="label">제목</td>
 							<td><input type="text" name="title" value=""></td>
 						</tr>

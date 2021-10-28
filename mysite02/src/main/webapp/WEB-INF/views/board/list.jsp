@@ -25,7 +25,7 @@
 					<tr>
 						<th>번호</th>
 						<th style="text-align: left">제목</th>
-						<th>작성자</th>
+						<th>작성자 </th>
 						<th>조회수</th>
 						<th>작성 날짜</th>
 						<th>삭제 하기</th>
@@ -34,8 +34,20 @@
 					<c:forEach items='${list }' var='boardVo' varStatus='status'>
 						<tr>
 							<td>${no+1 }</td>
-							<td style="text-align: left; padding-left: 0px"><a
-								href="${pageContext.servletContext.contextPath }/board?a=view&no=${boardVo.no }&title=${boardVo.title}&hit=${boardVo.hit }&regdate=${boardVo.reg_date}">${boardVo.title }</a></td>
+							<c:choose>
+								<c:when test="${boardVo.depth > 1}"> 
+									<td style="text-align: left; padding-left: 0px"><c:forEach begin="2" end="${boardVo.depth}" var="i" varStatus='status'>&nbsp&nbsp&nbsp&nbsp</c:forEach>
+									<img src="${pageContext.servletContext.contextPath }/assets/images/reply.png"/>
+									<a href="${pageContext.servletContext.contextPath }/board?a=view&no=${boardVo.no }&title=${boardVo.title}&order_no=${boardVo.order_no}&regdate=${boardVo.reg_date}
+											&group_no=${boardVo.group_no}&depth=${boardVo.depth}">${boardVo.title }</a></td>
+								
+								
+								</c:when>
+								<c:otherwise>
+							<td style="text-align: left; padding-left: 0px"><a href="${pageContext.servletContext.contextPath }/board?a=view&no=${boardVo.no }&title=${boardVo.title}&order_no=${boardVo.order_no}&regdate=${boardVo.reg_date}
+																&group_no=${boardVo.group_no}&depth=${boardVo.depth}">${boardVo.title }</a></td>
+								</c:otherwise>
+							</c:choose>
 							<td>${boardVo.name }</td>
 							<td>${boardVo.hit }</td>
 							<td>${boardVo.reg_date }</td>

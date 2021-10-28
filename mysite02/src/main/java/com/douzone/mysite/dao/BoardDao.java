@@ -26,7 +26,7 @@ public class BoardDao {
 			// 3. SQL 준비
 			String sql = "select b.no,name,title,contents,hit,reg_date,group_no,order_no,depth,user_no	"
 					+ "	from user a, board b	"
-					+ "    where a.no = b.user_no order by reg_date desc limit ?,5";
+					+ "    where a.no = b.user_no order by group_no desc, order_no asc limit ?,5";
 			pstmt = conn.prepareStatement(sql);
 
 			// 4. 바인딩(binding)
@@ -198,7 +198,7 @@ public class BoardDao {
 			conn = getConnection();
 
 			// 3. SQL 준비
-			String sql = "insert " + "into board " + "values(null, ?, ?, 0, now(), 1, 1, 1, ?)";
+			String sql = "insert " + "into board " + "values(null, ?, ?, 0, now(), ifnull((select max(b.group_no)+1 from board b),0), 1, 1, ?)";
 			pstmt = conn.prepareStatement(sql);
 
 			// 4. 바인딩(binding)
@@ -485,12 +485,16 @@ public class BoardDao {
 			conn = getConnection();
 
 			// 3. SQL 준비
-			String sql = "insert " + "into board " + "values(null, ?, ?, 0, now(), 1, 1, 1, 1)";
+			String sql = "insert " + "into board " + "values(null, ?, ?, 0, now(), ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 
 			// 4. 바인딩(binding)
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContents());
+			pstmt.setInt(3, vo.getGroup_no());
+			pstmt.setInt(4, vo.getOrder_no() +1);
+			pstmt.setInt(5, vo.getDepth() +1);
+			pstmt.setLong(6, vo.getUser_no());
 			
 			// 5. SQL 실행
 			int count = pstmt.executeUpdate();

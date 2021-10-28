@@ -24,7 +24,6 @@ public class BoardController {
 	@Auth
 	@RequestMapping({"","/pageNo/{pageNo}/blockNo/{blockNo}"})
 	public String list(@PathVariable("pageNo") int pageNo, @PathVariable("blockNo") int blockNo, Model model) {
-		
 		Map<String, Object> map = boardService.getBoardList(pageNo, blockNo);
 		model.addAttribute("map", map);
 		model.addAttribute("pageNo",pageNo);
@@ -45,46 +44,36 @@ public class BoardController {
 		
 		return "redirect:/board/pageNo/1/blockNo/1";
 	}
+
 	@Auth
-	@RequestMapping(value = "/rewrite", method=RequestMethod.GET)
-	public String rewrite(Model model) {
-		return "board/rewrite";
-	}
-	@Auth
-	@RequestMapping(value="/readd", method=RequestMethod.POST)
-	public String readd(BoardVo vo) {
-		boardService.addBoard(vo);
-		return "redirect:/board/pageNo/1/blockNo/1";
-	}
-	@Auth
-	@RequestMapping(value = "/view/{boardVo.no}/{boardVo.title}/{boardVo.contents}/{boardVo.regDate}", method=RequestMethod.GET)
-	public String view(@PathVariable("boardVo.no") Long no, @PathVariable("boardVo.title") String title, @PathVariable("boardVo.contents") String contents, 
-		@PathVariable("boardVo.regDate") String regDate ,Model model) {
-		model.addAttribute("no", no);
-		model.addAttribute("title", title);
-		model.addAttribute("contents", contents);
+	@RequestMapping(value = "/view/{boardVo.no}", method=RequestMethod.GET)
+	public String view(@PathVariable("boardVo.no") Long no, Model model, BoardVo vo) {
+		vo= boardService.serach(no);
 		
 		BoardVo boardVo = boardService.viewBoard(no);
 		
+		model.addAttribute("boardVo", boardVo);
 		return "board/view";
 	}
 	@Auth
-	@RequestMapping(value="/modify/{no}/{title}/{contents}", method=RequestMethod.GET)
-	public String modify(@PathVariable("no") Long no, @PathVariable("title") String title,
-			@PathVariable("contents") String contents, Model model,BoardVo vo, @AuthUser UserVo authUser) {
+	@RequestMapping(value="/modify/{boardVo.no}", method=RequestMethod.GET)
+	public String modify(@PathVariable("boardVo.no") Long no, Model model, @AuthUser UserVo authUser) {
+		BoardVo vo= boardService.serach(no);
+		
 		if(vo.getUserNo() != authUser.getNo()) {
 			return "redirect:/board/pageNo/1/blockNo/1";
 		}
+		BoardVo boardVo = boardService.viewBoard(no);
 		
-		model.addAttribute("no", no);
-		model.addAttribute("title", title);
-		model.addAttribute("contents", contents);
+		model.addAttribute("vo", vo);
 		
 		return "board/modify";
 	}
 	@Auth
-	@RequestMapping(value="/update1/{no}", method=RequestMethod.POST)
-	public String update1(BoardVo boardVo) {
+	@RequestMapping(value="/update1/{boardVo.no}", method=RequestMethod.POST)
+	public String update1( Model model, @PathVariable("boardVo.no") Long no) {
+		BoardVo boardVo = new BoardVo();
+		
 		boardVo.setNo(boardVo.getNo());
 		boardService.updateBoard(boardVo);
 		
@@ -97,12 +86,42 @@ public class BoardController {
 	@RequestMapping(value="/delete1/{boardVo.no}/{boardVo.title}")
 	public String delete1(@PathVariable("boardVo.no") Long no, @PathVariable("boardVo.title") String title , Model model,
 			BoardVo vo,@AuthUser UserVo authUser) {
-		if(vo.getUserNo() != authUser.getNo()) {
+		
+		vo= boardService.serach(no);
+		
+		if(authUser.getNo() != vo.getUserNo()) {
 			return "redirect:/board/pageNo/1/blockNo/1";
 		}
 		
 		boardService.deleteBoard(no, title);
 	 
+		return "redirect:/board/pageNo/1/blockNo/1";
+	}
+	@Auth
+	@RequestMapping(value="/rewrite/{boardVo.no}", method=RequestMethod.GET)
+	public String rewrite(@PathVariable("boardVo.no") Long no, BoardVo vo, @AuthUser UserVo authUser ,Model model) {
+		vo= boardService.serach(no);
+		
+		if(vo.getUserNo() != authUser.getNo()) {
+			return "redirect:/board/pageNo/1/blockNo/1";
+		}
+		model.addAttribute("vo", vo);
+		
+		return "board/readd";
+	}
+	@Auth
+	@RequestMapping(value="/readd/{boardVo.no}", method=RequestMethod.POST)
+	public String readd(Model model,BoardVo vo,@AuthUser UserVo authUser,@PathVariable("boardVo.no") Long no) {
+		
+		vo= boardService.serach(no);
+		
+		if(authUser.getNo() != vo.getUserNo()) {
+			return "redirect:/board/pageNo/1/blockNo/1";
+		}
+		
+		boardService.readdBoard(vo);
+		model.addAttribute("vo",vo);
+		
 		return "redirect:/board/pageNo/1/blockNo/1";
 	}
 }

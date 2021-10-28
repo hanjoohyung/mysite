@@ -78,9 +78,12 @@ alter table user add column role enum('USER', 'ADMIN') not null default 'USER';
 
 select * from board;
 
-insert into board values(null, 'qwe11rdd', 'ddddd', 0, now(), max(group_no), 1, 1, 2);
+insert into board values(null, 'qwe11rdd', 'ddddd', 0, now(), ifnull((select max(b.group_no)+1 from board b),0) , 1, 1, 2);
 
 select max(group_no) from board;
+
+insert into board values(null, 'qwe11rdd', 'ddddd', 0, now(), 4, 1, 1, 2) 
+
 
 select* from board limit 10,10;
 

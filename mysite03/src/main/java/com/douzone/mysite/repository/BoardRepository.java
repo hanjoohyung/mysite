@@ -29,7 +29,10 @@ public class BoardRepository {
 		int count = sqlSession.insert("board.insert", vo);
 		return count == 1;
 	}
- 
+	public boolean reinsert(BoardVo vo) {
+		int count = sqlSession.insert("board.reinsert", vo);
+		return count == 1;
+	}
 	public boolean update(BoardVo vo) {
 		int count = sqlSession.update("board.update", vo);
 		return count == 1;
@@ -59,4 +62,6 @@ public class BoardRepository {
 	public int pageCount(int count) {
 		return sqlSession.selectOne("board.pageCount", count); 
 	}
+
+	
 }

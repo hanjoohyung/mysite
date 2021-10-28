@@ -19,10 +19,12 @@ public class ViewAction implements Action {
 		String contents = request.getParameter("contents");
 		String reg_date = request.getParameter("regdate");
 		String no = request.getParameter("no");
-		String hit = request.getParameter("hit");
+		int order_no = Integer.parseInt(request.getParameter("order_no"));
+		int group_no = Integer.parseInt(request.getParameter("group_no"));
+		int depth = Integer.parseInt(request.getParameter("depth"));
 		
 		Long no1 = Long.parseLong(no);
-		Integer hit1 = Integer.parseInt(hit);
+	
 		BoardVo vo = new BoardDao().findWhere(title, reg_date);
 		HttpSession session = request.getSession(true);
 		 
@@ -30,7 +32,9 @@ public class ViewAction implements Action {
 		request.setAttribute("title", vo.getTitle());
 		request.setAttribute("contents",vo.getContents());
 		request.setAttribute("reg_date", vo.getReg_date());
-		request.setAttribute("hit1", vo.getHit());
+		request.setAttribute("order_no", vo.getOrder_no());
+		request.setAttribute("group_no", vo.getGroup_no());
+		request.setAttribute("depth", vo.getDepth());
 		
 		new BoardDao().updateHit(no1);
 		
