@@ -78,15 +78,25 @@ alter table user add column role enum('USER', 'ADMIN') not null default 'USER';
 
 select * from board;
 
+insert into board values(null, 'qwe11rdd', 'ddddd', 0, now(), max(group_no), 1, 1, 2);
+
+select max(group_no) from board;
+
 select* from board limit 10,10;
 
 select * from board order by reg_date desc limit 0,10;
-
+select group_no from board;
 select * from board where title='7g7g';
 
 select * from user;
 
 delete from board where no=59 and title=2222;
 delete from board where no=105 and title='7g7g';
+select count(no) from board;
+
+select title,contents, group_no from board;
+
 
 select no, url, comments from gallery;
+
+delete from board where no=105 and title='7g7g'; 
