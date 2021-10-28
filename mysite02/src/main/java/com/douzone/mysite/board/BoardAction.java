@@ -95,6 +95,7 @@ public class BoardAction implements Action {
 			request.setAttribute("start",start);
 			request.setAttribute("end",end);
 			}
+			
 			MvcUtil.forword("board/list", request, response);
 		}
 		

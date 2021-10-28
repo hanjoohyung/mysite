@@ -14,7 +14,8 @@ public class ReWriteAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Long no = Long.parseLong(request.getParameter("no"));
-		String title = request.getParameter("title");
+		
+		request.setAttribute("no", no);
 		
 		MvcUtil.forword("board/rewrite", request, response);
 
