@@ -28,7 +28,8 @@ public class ModifyAction implements Action {
 		BoardVo Vo = new BoardVo();
 		
 		if(Vo.getUser_no() != authUser.getNo()) {
-			 
+			MvcUtil.redirect(request.getContextPath() + "/board?pageNo=1&blockNo=1", request, response);
+			return;
 		}
 		
 		

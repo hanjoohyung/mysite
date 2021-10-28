@@ -30,7 +30,8 @@ public class Delete1Action implements Action {
 		vo.setTitle(title);
 		
 		if(vo.getUser_no() != authUser.getNo()) {
-			
+			MvcUtil.redirect(request.getContextPath() + "/board?pageNo=1&blockNo=1", request, response);
+			return;
 		} 
 		
 		new BoardDao().delete(vo);
