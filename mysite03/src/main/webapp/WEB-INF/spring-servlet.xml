@@ -45,10 +45,14 @@
 	<mvc:default-servlet-handler />
 
 	<!-- mvc url-resource mapping -->
-	<mvc:resources mapping="/gallery/images/**" location="file:/upload-mysite/" />
+	<mvc:resources mapping="/upload/images/**" location="file:/upload-mysite/" />
 
 	<!-- Interceptor -->
 	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.douzone.mysite.security.SiteInterceptor" />
+		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/user/auth" />
 			<bean class="com.douzone.mysite.security.LoginInterceptor" />
@@ -76,7 +80,7 @@
 	<!-- Multipart Resolver -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- 최대업로드 가능한 바이트크기 -->
-		<property name="maxUploadSize" value="52428800" />
+		<property name="maxUploadSize" value="5242880000" />
 		<!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기 -->
 		<!-- property name="maxInMemorySize" value="52428800" /-->
 		<!-- defaultEncoding -->

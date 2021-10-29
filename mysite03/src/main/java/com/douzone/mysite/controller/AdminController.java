@@ -2,34 +2,58 @@ package com.douzone.mysite.controller;
 
 import javax.servlet.ServletContext;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.douzone.mysite.exception.FileUploadException;
 import com.douzone.mysite.security.Auth;
+import com.douzone.mysite.service.FileUploadService;
 import com.douzone.mysite.service.SiteService;
 import com.douzone.mysite.vo.SiteVo;
 
+@Auth(role="ADMIN")
 @Controller
 @RequestMapping("/admin")
-@Auth(role="ADMIN")
 public class AdminController {
+	private static final Log LOGGER = LogFactory.getLog(AdminController.class);
+
 	@Autowired
-	ServletContext servletContext;
+	private ServletContext servletContext;
 	
 	@Autowired
-	SiteService siteService;
-	
+	private SiteService siteService;
+
+	@Autowired
+	private FileUploadService fileUploadService;
+
 	@RequestMapping("")
-	public String main() {
+	public String main(Model model) {
+		SiteVo site = siteService.getSite();
+		model.addAttribute("site", site);
 		return "admin/main";
 	}
+	
 	@RequestMapping("/main/update")
-	public String main(SiteVo vo) {
-		siteService.update(vo);
+	public String main(SiteVo site, @RequestParam("file") MultipartFile file) {
+		try {
+			String profile = fileUploadService.restoreImage(file,site);
+			site.setProfile(profile);
+		} catch(FileUploadException ex) {
+			LOGGER.info("Admin Main Update:" + ex);
+		}
 		
-		return "admin/main";
-	}
+		siteService.update(site);
+		servletContext.setAttribute("site", site);
+		
+		return "redirect:/admin";
+	}	
+	
 	@RequestMapping("/guestbook")
 	public String guestbook() {
 		return "admin/guestbook";
@@ -44,4 +68,5 @@ public class AdminController {
 	public String user() {
 		return "admin/user";
 	}
+	
 }

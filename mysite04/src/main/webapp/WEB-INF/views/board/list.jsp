@@ -20,7 +20,7 @@
 				</form>
 				<table class="tbl-ex">
 							<tr>
-								<th>번호</th>
+								<th>번호${map.pageCount/5}</th>
 		 						<th style="text-align:left">제목</th>
 								<th>작성자</th>
 								<th>조회수</th>
@@ -31,7 +31,17 @@
 							<c:forEach items='${map.list }' var='boardVo' varStatus='status'>	
 							<tr>
 								<td>${status.index+1 }</td>
-								<td style="text-align:left; padding-left:0px"><a href="${pageContext.servletContext.contextPath }/board/view/${boardVo.no}/${boardVo.title }/${boardVo.contents }/${boardVo.regDate}">${boardVo.title }</a></td>
+								<c:choose>
+								<c:when test="${boardVo.depth > 1}"> 
+									<td style="text-align: left; padding-left: 0px"><c:forEach begin="2" end="${boardVo.depth}" var="i" varStatus='status'>&nbsp&nbsp&nbsp&nbsp</c:forEach>
+									<img src="${pageContext.servletContext.contextPath }/assets/images/reply.png"/>
+									<a href="${pageContext.servletContext.contextPath }/board/view/${boardVo.no} ">${boardVo.title }</a></td>
+								</c:when>
+								<c:otherwise>
+									<td style="text-align: left; padding-left: 0px">
+									<a href="${pageContext.servletContext.contextPath }/board/view/${boardVo.no }">${boardVo.title }</a></td>
+								</c:otherwise>
+							</c:choose>
 								<td>${boardVo.name }</td>
 								<td>${boardVo.hit }</td>
 								<td>${boardVo.regDate }</td>

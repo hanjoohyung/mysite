@@ -20,7 +20,7 @@
 				</form>
 				<table class="tbl-ex">
 							<tr>
-								<th>번호</th>
+								<th>번호${map.pageCount/5}</th>
 		 						<th style="text-align:left">제목</th>
 								<th>작성자</th>
 								<th>조회수</th>

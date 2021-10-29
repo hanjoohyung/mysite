@@ -2,6 +2,8 @@ package com.douzone.mysite.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +35,6 @@ public class BoardController {
 	@Auth
 	@RequestMapping(value = "/write", method=RequestMethod.GET)
 	public String write(Model model) {
-		
 		return "board/write";
 	}
 	@Auth
@@ -44,7 +45,38 @@ public class BoardController {
 		
 		return "redirect:/board/pageNo/1/blockNo/1";
 	}
-
+	@Auth
+	@RequestMapping(value="/rewrite/{boardVo.no}/{boardVo.groupNo}/{boardVo.orderNo}/{boardVo.depth}", method=RequestMethod.GET)
+	public String rewrite(@PathVariable("boardVo.no") Long no, @PathVariable("boardVo.groupNo") int groupNo,
+			@PathVariable("boardVo.orderNo") int orderNo,
+			@PathVariable("boardVo.depth") int depth, BoardVo vo, @AuthUser UserVo authUser ,Model model) {
+		
+		vo.setNo(no);
+		vo.setGroupNo(groupNo);
+		vo.setOrderNo(orderNo);
+		vo.setDepth(depth);
+		
+		return "board/rewrite";
+	}
+	@Auth
+	@RequestMapping(value="/readd/{boardVo.no}", method=RequestMethod.POST)
+	public String readd(Model model,BoardVo vo,@AuthUser UserVo authUser,@PathVariable("boardVo.no") Long no) {
+		BoardVo boardVo= boardService.serach(no);
+		
+		boardService.reupdate(boardVo);
+		
+		boardVo.setTitle(vo.getTitle());
+		boardVo.setContents(vo.getContents());
+		boardVo.setUserNo(vo.getUserNo());
+		boardVo.setOrderNo(boardVo.getOrderNo()+1);
+		boardVo.setDepth(boardVo.getDepth()+1);
+		boardVo.setUserNo(authUser.getNo());
+		
+		//insert
+		boardService.readdBoard(boardVo);
+		
+		return "redirect:/board/pageNo/1/blockNo/1";
+	}
 	@Auth
 	@RequestMapping(value = "/view/{boardVo.no}", method=RequestMethod.GET)
 	public String view(@PathVariable("boardVo.no") Long no, Model model, BoardVo vo) {
@@ -71,14 +103,10 @@ public class BoardController {
 	}
 	@Auth
 	@RequestMapping(value="/update1/{boardVo.no}", method=RequestMethod.POST)
-	public String update1( Model model, @PathVariable("boardVo.no") Long no, BoardVo vo,@AuthUser UserVo authUser) {
+	public String update1(HttpServletRequest request, Model model, @PathVariable("boardVo.no") Long no, BoardVo vo,@AuthUser UserVo authUser) {
 		
-		
-		vo.setNo(authUser.getNo());
+		vo.setNo(no);
 		boardService.updateBoard(vo);
-		
-		vo.setTitle(vo.getTitle());
-		vo.setContents(vo.getContents());
 		
 		return "redirect:/board/pageNo/1/blockNo/1";
 	}
@@ -97,23 +125,5 @@ public class BoardController {
 	 
 		return "redirect:/board/pageNo/1/blockNo/1";
 	}
-	@Auth
-	@RequestMapping(value="/rewrite/{boardVo.no}", method=RequestMethod.GET)
-	public String rewrite(@PathVariable("boardVo.no") Long no, BoardVo vo, @AuthUser UserVo authUser ,Model model) {
-		vo= boardService.serach(no);
-		model.addAttribute("vo", vo);
-		
-		return "board/rewrite";
-	}
-	@Auth
-	@RequestMapping(value="/readd/{boardVo.no}", method=RequestMethod.POST)
-	public String readd(Model model,BoardVo vo,@AuthUser UserVo authUser,@PathVariable("boardVo.no") Long no) {
-		vo= boardService.serach(no);
-		vo.setUserNo(authUser.getNo());
-		
-		boardService.readdBoard(vo);
-		model.addAttribute("vo",vo);
-		
-		return "redirect:/board/pageNo/1/blockNo/1";
-	}
+
 }

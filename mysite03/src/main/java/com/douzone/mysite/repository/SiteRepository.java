@@ -9,11 +9,14 @@ import com.douzone.mysite.vo.SiteVo;
 @Repository
 public class SiteRepository {
 	@Autowired
-	SqlSession sqlSession;
-	
+	private SqlSession sqlSession;
+
+	public SiteVo find() {
+		return sqlSession.selectOne("site.find");
+	}
+
 	public boolean update(SiteVo vo) {
 		int count = sqlSession.update("site.update", vo);
 		return count == 1;
 	}
-
 }

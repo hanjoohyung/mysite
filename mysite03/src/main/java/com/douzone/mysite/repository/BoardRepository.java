@@ -33,6 +33,10 @@ public class BoardRepository {
 		int count = sqlSession.insert("board.reinsert", vo);
 		return count == 1;
 	}
+	public boolean reupdate(BoardVo vo) {
+		int count = sqlSession.update("board.reupdate",vo);
+		return count == 1;
+	}
 	public boolean update(BoardVo vo) {
 		int count = sqlSession.update("board.update", vo);
 		return count == 1;

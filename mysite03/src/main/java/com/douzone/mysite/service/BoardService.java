@@ -24,6 +24,7 @@ public class BoardService {
 		int viewNo = 5; // 페이지에 보이는 게시물 개수
 		int count = 0; // 총 게시물 개수
 		count = boardRepository.pageCount(count);
+		System.out.println(count);
 		pageCount = count/viewNo;
 		 
 		begin = (pageNo-1)*5;
@@ -76,7 +77,7 @@ public class BoardService {
 		map.put("end", end);
 		
 		} else {
-		String end = Integer.toString(count/5+1);
+		String end = Integer.toString(blockNo*5);
 			
 		map.put("pageNo", pageNo);
 		map.put("pageCount", pageCount);	
@@ -120,17 +121,13 @@ public class BoardService {
 	}
 
 	public boolean readdBoard(BoardVo vo) {
-		vo.getTitle();
-		vo.getContents();
-		vo.getGroupNo();
-		vo.getOrderNo();
-		vo.getDepth();
-		vo.getUserNo();
-		
 		return boardRepository.reinsert(vo);
 		
 	}
-
+	public boolean reupdate(BoardVo vo) {
+		return boardRepository.reupdate(vo);
+	}
+	
 	public BoardVo serach(Long no) {
 		return boardRepository.findByNo(no);
 	}

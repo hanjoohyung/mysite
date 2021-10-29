@@ -3,7 +3,8 @@
 <mapper namespace="board">
 	<insert id="insert" parameterType="boardvo">
 		<![CDATA[
-			 insert into board values(null, #{title}, #{contents}, 0, now(), ifnull((select max(b.group_no)+1 from board b),0), 1, 1, #{userNo})
+			 insert into board values(null, #{title}, #{contents}, 0, now(), 
+			 	ifnull((select max(b.group_no)+1 from board b),0), 1, 1, #{userNo})
 		]]>
 	</insert>
 	<insert id="reinsert" parameterType="boardvo">
@@ -59,6 +60,12 @@
 	<update id="update" parameterType="boardvo">
 		<![CDATA[
 			update board set title=#{title }, contents=#{contents } where no=#{no}
+		]]>
+	</update>
+	
+	<update id="reupdate" parameterType="boardvo">
+		<![CDATA[
+			update board set order_no=order_no+1 where group_no = #{groupNo} and order_no >= #{orderNo}
 		]]>
 	</update>
 </mapper>

@@ -20,12 +20,12 @@
 					</tr>
 					<tr>
 			 			<td class="label">제목</td>
-						<td>${title }</td>
+						<td>${boardVo.title }</td>
 					</tr>
 					<tr>
 						<td class="label">내용</td>
 						<td>
-							<div class="view-content"> ${contents }
+							<div class="view-content"> ${boardVo.contents }
 							</div>
 						</td>
 					
@@ -33,8 +33,8 @@
 				</table>
 				<div class="bottom">
 					<a href="${pageContext.servletContext.contextPath }/board/pageNo/1/blockNo/1">글목록</a>
-					<a href="${pageContext.servletContext.contextPath }/board/rewrite/${no }/${title} ">답글</a>
-					<a href="${pageContext.servletContext.contextPath }/board/modify/${no}/${title}/${contents}">글수정</a>
+					<a href="${pageContext.servletContext.contextPath }/board/rewrite/${boardVo.no}/${boardVo.groupNo}/${boardVo.orderNo}/${boardVo.depth}">답글</a>
+					<a href="${pageContext.servletContext.contextPath }/board/modify/${boardVo.no}">글수정</a>
 				</div>
 			</div>
 		</div>

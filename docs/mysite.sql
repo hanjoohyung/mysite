@@ -82,8 +82,8 @@ insert into board values(null, 'qwe11rdd', 'ddddd', 0, now(), ifnull((select max
 
 select max(group_no) from board;
 
-insert into board values(null, 'qwe11rdd', 'ddddd', 0, now(), 4, 1, 1, 2) 
-
+insert into board values(null, 'qwe11rdd', 'ddddd', 0, now(), 4, 1, 1, 2);
+select * from board;
 
 select* from board limit 10,10;
 
@@ -103,3 +103,20 @@ select title,contents, group_no from board;
 select no, url, comments from gallery;
 
 delete from board where no=105 and title='7g7g'; 
+
+select no,title,contents,reg_date as regDate,group_no as groupNo,order_no as orderNo,depth,user_no as userNo
+				from board ;
+                
+                delete from board where no=166 and title='11';
+                
+                select b.user_no as userNo ,a.no
+					from board b join user a on b.user_no = a.no;
+                    
+		update board set title='123123123', contents='1111' where no=163;
+        select * from board;
+        select * from user;
+select * from site;
+select * from gallery;
+insert into site values(null, 'title', 'welcome', '/gallery/images/202192661911903.png', 'description');
+
+delete from site where no =2;
