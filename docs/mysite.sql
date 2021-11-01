@@ -119,4 +119,4 @@ select * from site;
 select * from gallery;
 insert into site values(null, 'title', 'welcome', '/gallery/images/202192661911903.png', 'description');
 
-delete from site where no =2;
+delete from site where no =4;
