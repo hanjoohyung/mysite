@@ -11,7 +11,7 @@ public class SiteService {
 	@Autowired
 	private SiteRepository siteRepository;
 
-	public SiteVo getSite() {
+	public SiteVo find() {
 		return siteRepository.find();
 	}
 
