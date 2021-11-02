@@ -22,7 +22,6 @@
 					<c:if test='${result == "fail" }'>
 						<p>잘못된 ID 혹은 PASSWORD 입니다.</p>
 					</c:if>
-
 					<input type="submit" value="로그인">
 				</form>
 			</div>
