@@ -45,7 +45,9 @@ spring:
 # production profile - spring boot configuration
 
 spring:
-   profile: production
+   config:
+      active:
+         profile: production
 
    # datasource
    datasource: 
@@ -53,13 +55,15 @@ spring:
       url: jdbc:mysql://227.8.9.1:3306/webdb?characterEncoding=utf8
       username: webdb
       password: webdb?!@#yammi123
-      initialSize: 10
-      maxActive: 20
+      initialSize: 100
+      maxActive: 200
 ---
 # dev profile - spring boot configuration
 
 spring:
-   profile: dev
+   config:
+      active:
+         profile: dev
 
    # datasource
    datasource: 
@@ -75,6 +79,12 @@ server:
    port: 8080
    servlet: 
       context-path: /mysite06
+      enconding: 
+         charset: utf-8
+         enabled: true
+         force: false
+         force-request: false
+         force-response: false
 
 ---
 # mybatis
@@ -85,7 +95,3 @@ mybatis:
 # logging
 logging: 
    config: classpath:logback.xml
-
-
-
-

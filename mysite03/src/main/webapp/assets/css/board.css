@@ -1,8 +1,10 @@
 @charset "UTF-8";
 @import "mysite.css";
 
-#board { margin:20px auto;	width:550px; }
-
+#board {
+	margin:20px auto;
+	width:550px;
+}
 
 #search_form {
 	width:100%;
@@ -10,7 +12,7 @@
 	text-align:center; 	 
 }
 
-input[type="text"]	{
+input[type="text"] {
 	padding:5px; 
 	border:1px solid #aaa
 }
@@ -39,8 +41,7 @@ input#kwd	{
 	border-bottom:2px solid #333;
 }
 
-.tbl-ex th, 
-.tbl-ex td	{ 
+.tbl-ex th, .tbl-ex td	{ 
 	padding:8px;
 	text-align:center; 	 
 }
@@ -118,6 +119,8 @@ a#new-book	 {
 	color:#111;
 	cursor: pointer	
 }
+
+.board-form .bottom a.l { float:left; }
 
 .board-form .bottom a {
 	margin-left: 10px;

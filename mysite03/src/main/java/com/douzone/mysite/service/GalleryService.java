@@ -18,7 +18,7 @@ import com.douzone.mysite.vo.GalleryVo;
 @Service
 public class GalleryService {
 	private static String SAVE_PATH = "/upload-mysite";
-	private static String URL_BASE = "/gallery/images";	
+	private static String URL_BASE = "/upload/images";	
 	
 	@Autowired
 	private GalleryRepository galleryRepository;

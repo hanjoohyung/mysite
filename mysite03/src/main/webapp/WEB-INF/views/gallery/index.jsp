@@ -57,7 +57,7 @@
 					</c:if>
 				</div>
 				<ul>
-					<c:forEach items="${list }" var="vo">
+					<c:forEach items="${list }" var="vo" varStatus='status'>
 						<li>
 							<a	href="${pageContext.request.contextPath }${vo.url }"
 								data-lightbox="gallery"
