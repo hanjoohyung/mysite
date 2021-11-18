@@ -28,4 +28,8 @@ public class GuestbookService {
 public boolean addMessage(GuestbookVo vo) {
 	return guestbookRepository.insert(vo);
 }
+
+public List<GuestbookVo> getMessageList(Long no) {
+	return guestbookRepository.findAll(no);
+}
 }

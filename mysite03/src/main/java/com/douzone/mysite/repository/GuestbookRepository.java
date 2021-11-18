@@ -25,4 +25,8 @@ public class GuestbookRepository {
 		int count = sqlSession.delete("guestbook.delete", vo);
 		return count == 1;
 	}
+
+	public List<GuestbookVo> findAll(Long no) {
+		return sqlSession.selectList("guestbook.findAllByNo", no);
+	}
 }
